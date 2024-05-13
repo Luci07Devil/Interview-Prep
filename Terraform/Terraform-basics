@@ -1,0 +1,9 @@
+terraform pipeline should contain tf cloning ,tf validate, tf fmt ,tf lint,tf plan -out=tflan,tf apply tfplan --auto-approve,notification.
+
+meta-arguments in terrafomr
+
+Lifecycle
+depends_on
+provider
+ignore_chnages 
+count 

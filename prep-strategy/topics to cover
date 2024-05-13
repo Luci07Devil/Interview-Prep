@@ -1,0 +1,36 @@
+Git/github->
+   commands and branching strategies 
+Maven ->
+   Maven lifecycle 
+jenkins ->
+   jenkins scripting 
+sonarqube ->
+   sonarqube terminologies
+container scan tools  ->
+   sonatype nexusIQ ,trivy 
+docker ->
+   docker commands ,cgrps and namespaces ,docker file writing ,docker architecture  
+kubernetes ->
+   Isito,kubernets cluster creation,commands ,basic components,controllers 
+prometheus  ->
+   architecture and components
+grafana ->
+   datasource ,visualization
+python scripting  ->
+   file manipulation,string,array,list,lambda fucntions 
+security standards ->
+   Owasp standards ,security brst practices
+ansible->
+   simple ansible components and simple playbook to create webserver and ansible adhoc commands for some basic activities 
+networking conceptsn->
+   HTTPS,OSI model,DHCP,DNS,Routing,NAT,Subnetting ,IP address ,linux commands 
+AWS ->
+   EKS,S3,EBS,EFS,cloudwatch,cloudtrail,ALB,prometheus,grafana ,secret manager,route53,lambda,docdb,
+Java programming ->
+   basics since have some work experience 
+observability ->
+   monitoring tools and functionalities 
+tracing ->
+   Jaeger,otel collector ,vector ,tracing export to datadog 
+
+

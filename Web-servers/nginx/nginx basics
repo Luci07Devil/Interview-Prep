@@ -1,0 +1,25 @@
+logs are written in /var/log/nginx ->access.log and error.log
+/etc/nginx/ssl holds ssl relates certificates and keys 
+nginx.conf file is found in /etc/nginx/nginx.conf
+/var/www/html/index.html is the static file content 
+
+steps to add SSL certifications
+  1.add SSL certification and keys in /etc/nginx/ssl folder 
+  2.mention the path in server block of nginx.conf file if u have used customised path
+  3.restart the nginx server 
+  4.you may configure certbot for automatic SSL certification renewal
+ 
+some load balaancing strategies 
+  least connections
+  round robin
+  weight connections 
+  health checks
+  geo-locations 
+  Ip hashing 
+  
+Troubleshooting ways ,
+
+checking the access.log and error.log and integrating nginx server with monitoring tools like prometheus ,grafana and datadog 
+  
+Access logs (access.log) record details such as client IP addresses, request methods, response status codes, and requested URLs.
+Error logs (error.log) capture error messages, warnings, and other issues encountered by Nginx.

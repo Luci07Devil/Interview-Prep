@@ -1,0 +1,19 @@
+nginx_role/
+├── defaults/
+│   └── main.yml
+├── files/
+│   └── example.com.conf
+├── handlers/
+│   └── main.yml
+├── meta/
+│   └── main.yml
+├── tasks/
+│   ├── main.yml
+│   └── setup.yml
+├── templates/
+│   └── nginx.conf.j2
+├── tests/
+│   ├── inventory
+│   └── test.yml
+└── vars/
+    └── main.yml

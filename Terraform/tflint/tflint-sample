@@ -1,0 +1,12 @@
+check variable naming convention
+check local vars format
+disallow // comment in favor of #
+enforce tagging of the instances 
+config {
+module=true 
+} to enable module inspection
+disallow output vars without description
+disallow vars without description
+required providers
+required provisioners 
+Disallow variables, data sources, and locals that are declared but never used.

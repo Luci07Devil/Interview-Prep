@@ -1,0 +1,27 @@
+File and Directory Operations:
+os.getcwd(): Get the current working directory.
+os.chdir(path): Change the current working directory to path.
+os.listdir(path='.'): Return a list of the entries in the directory given by path.
+os.mkdir(path): Create a directory named path.
+os.makedirs(path): Recursive directory creation function.
+File and Directory Information:
+os.stat(path): Get the status of a file or a file descriptor.
+os.path.exists(path): Check whether the path exists.
+os.path.isfile(path): Check whether the path is a regular file.
+os.path.isdir(path): Check whether the path is a directory.
+os.path.basename(path): Get the base name of the path.
+os.path.dirname(path): Get the directory name of the path.
+Process Management:
+os.system(command): Execute the command in a subshell.
+os.spawnv(mode, path, args): Execute the program path in a new process.
+os.fork(): Fork a child process.
+os.waitpid(pid, options): Wait for a child process to terminate.
+Environment Variables:
+os.getenv(key, default=None): Get the value of the environment variable named key.
+os.putenv(key, value): Set the value of the environment variable key to value.
+os.environ: A mapping object representing the current environment variables.
+File Descriptor Operations:
+os.open(file, flags[, mode]): Open a file (similar to open() but returns a file descriptor).
+os.close(fd): Close a file descriptor.
+os.read(fd, buffersize): Read data from the file descriptor.
+os.write(fd, data): Write data to the file descriptor.

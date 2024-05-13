@@ -1,0 +1,14 @@
+best practices in terraform
+   1.using remote backends for statelock and storing state file like s3 
+   2.variable validations using validation block inside the variable blocks
+   3.using different variables files for specific environment 
+   4.using data sources for extracting info from the cloud 
+   5.using vault for storing sensitive data 
+   6.using locals for clean code 
+   7.using latest cloud provider 
+   8.using null resource for task provisioning 
+   9.writing dynamic code for dependency graph
+   10.utilizing count and for_each 
+   11.using conditional expressions for deployment
+   
+   

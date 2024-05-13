@@ -1,0 +1,7 @@
+Create files and folder 
+   folder1-->file1
+   folder2--->file1,file2
+   fodler3-->file1,file2,file3
+   foldern->file1,file2,file3,....filen
+   
+three lines of logs and asked to check the how many 200 and 500 errors in the file

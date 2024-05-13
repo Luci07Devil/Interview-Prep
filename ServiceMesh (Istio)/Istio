@@ -1,0 +1,24 @@
+Istio components 
+   Control Plane =>Istiod(Pilot,citadel,galley)
+           Pilot=>If any new pod comes up that pod envoy will send out info(IP) to pilot and pilot will propagate that to all other envoys (service discovery)
+           Citadel=>responsible for end to end authentication between the services and encryption of traffic between them
+           Galley=>Respsonible for covnerting yaml to kubernetes to istio format 
+
+   Data Plane=>all the envoy side car containers or envoy proxies are istio
+
+Virtual Service and destionation rule 
+   Virtual service contains the host and subset service URI
+   Destination rule contains where the traffice should go to
+
+
+ingress Gateway=> envoy proxy to allow the incoming traffic outside service mesh
+      API gateway object mentions the hosts allowed from outside to access and virtual service to route the traffice from this gateway 
+Egress Gateway=> envoy proxy to allow outgoing traffic from service mesh like database 
+     for egress gateway teo components are requirede 
+      if(istio configmap says REGISTER_ONLY) else (ALLOW_ANY) :follwing doest not require
+        1.service entry  => register the service to flow traffic from service mesh to external service ,we mention the DNS port number and all
+        2.virtual service =>to control the traffic flow from service mesh to external service 
+
+Kiali dashboard visualise the traffic flow and easily understand the components in istio in particular cluster
+
+
