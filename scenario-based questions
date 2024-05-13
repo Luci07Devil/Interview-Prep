@@ -1,0 +1,17 @@
+ How do you ensure that your applications are scalable and highly available in a DevOps environment?
+   auto-scaling,loadbalancing,health-checks,monitoring,CI/CD,disaster-recovery,redundancy instances 
+
+Scenario : You are managing a high-traffic web application hosted on AWS. Recently, you've noticed intermittent performance issues during peak hours, resulting in increased latency and occasional downtime. How would you diagnose and address this issue?
+
+1.autoscaling the ec2 instances using external metrics 
+2.monitoring the KPI like cpu,memory,network traffice on your pod/ec2 instances
+3.monitor the applications analmalies using cloudwatch ,promtheus.grafana
+4.analyse the logs using cloudwatch and elasticsearch
+5.check for code inefficiencies/reducing no of external API calls ,optimizing database queries in code 
+6.elastic loadbalancing with health check to remove unhealthy instances
+7.elasticcache implementation to avoid latency 
+7.enhancing the architecture to avoid next time 
+
+
+
+

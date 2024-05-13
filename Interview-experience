@@ -1,0 +1,14 @@
+ALB and NLB difference 
+  ALB supports host,path,content-based routing and Layer 7 based routing (HTTP/HTTPS)
+  NLB does not support and Layer4 based routing (TCP/UDP) and IP addresses
+  
+  ALB routes to EC2 instances,IP addresses,Lambda and ECS containers
+  NLB routes to EC2 instances and IP addresses only
+
+Why do we need Route53
+ registering a domain to make it available globally
+ health check endpoints to route traffic to healthy endpoitn
+ translates domain to IP address ,mx 
+ 
+
+  

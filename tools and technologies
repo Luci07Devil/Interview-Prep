@@ -1,0 +1,32 @@
+github
+maven
+jenkins
+docker
+sonarqube
+kubernetes
+terraform
+ansible
+python scripting
+linux administration
+networking protocols
+OSI model
+Prometheus
+aws services
+  1.S3 and S3 glacier
+  2.ALB
+  3.Route53
+  4.VPC and peering 
+  5.EC2
+  6.ECS
+  7.Fargate
+  8.Lambda
+  9.AWS devops services(AWS commit,build,codepipeline & codedeploy)
+  10.IAM
+  11.ASG
+  12.EKS
+  13.RDS
+  14.Cloudwatch
+  15.ECR
+  16.ASG
+  17.AWS trust advisor 
+  18.AWS billing dashboard 

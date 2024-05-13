@@ -1,2 +1,1 @@
-# Interview-Prep
-Interview Prep Notes
+# docs

@@ -1,0 +1,13 @@
+terrform apply actions 
+   it will lock the statefile to avoiid concurrent builds 
+   it will check the syntax and validates configuration files as per terraform schema 
+   terraform downloads the neccessary providers
+   terraform compares the latest config file and compare with state file and apply the changes to infrastructure
+   it will create a create ,update and delete process for each resources
+   terraform will update the statefile to reflect the changes in real infra 
+   it will release the statelock 
+components required to isolate the containers in docker 
+   namespaces and cgroups
+cloudtrail logs to identify the api calls in your AWS resources 
+
+   
