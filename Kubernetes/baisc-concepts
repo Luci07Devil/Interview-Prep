@@ -1,0 +1,19 @@
+types of controllers->
+   replication controller
+   Deploymnet
+   statefulset
+   Daemonset
+   jobs
+   cronjobs
+components in deployment->
+   apiversion,metdata,spec,templates,image,probe checks,nodeselector,lifecycle,cpu request and limits ,volumemounts ,volume ,strategy
+strategy in deployment:
+   rolling update
+   recreate
+ statefulset:
+   ondelete
+ daemonset:
+   rolling update
+   ondelete 
+ 
+   

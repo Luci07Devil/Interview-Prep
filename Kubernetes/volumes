@@ -1,0 +1,24 @@
+Volume->external storage mount for persitence 
+
+types of storage provisions=>static and dynamic (stroage class)
+
+static=>pod=>pvc=>pv=>EBS/EFS/Instance storage 
+
+dynamic=>pod=>pvc=>storageclass=>EBS/EFS/instance storage
+
+
+reclaiming of volumes in pv=>retain,delete,recycle
+
+retain=>it will be in released state once pod delete can be retained by manually deleting the data in volume
+delete=>it will delete the pv and awsebs once pod is deleted
+recycle=>it will be recylced by basic scrub rm -rf /volume and can be used again
+
+
+accessmodes in pv:
+
+readwriteonce=>read and write by singlenode 
+readwriteoncepod=>r&w once by single pod 
+readwritemany=>r&w many time by mulitple nodes 
+readonlymany=>read only by all nodes 
+
+

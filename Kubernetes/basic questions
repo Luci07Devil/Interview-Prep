@@ -1,0 +1,16 @@
+1. What is Kubernetes networking, and how does it work?
+2. What is a service in Kubernetes, and how is it related to networking?
+3. What is a cluster IP, and how is it used in Kubernetes networking?
+4. How does a pod communicate with other pods in a Kubernetes cluster?
+5. What is a pod IP, and how is it used in Kubernetes networking?
+6. What is a node port, and how is it used in Kubernetes networking?
+7. How does Kubernetes handle load balancing for services?
+8. What is an ingress controller, and how is it used in Kubernetes networking?
+9. What is a network policy, and how is it used in Kubernetes networking?
+10. What is the difference between a Kubernetes Service and a Kubernetes Ingress?
+11. What is a Kubernetes ExternalName service, and how is it used in networking?
+12. What is the difference between a Layer 4 load balancer and a Layer 7 load balancer, and which one is better for Kubernetes?
+13. How does Kubernetes integrate with cloud-based load balancers, such as AWS ELB or Google Cloud Load Balancing?
+14. What is the difference between a Kubernetes ClusterIP service and a Kubernetes NodePort service?
+15. What is a Kubernetes Headless service, and how is it used in networking?
+like

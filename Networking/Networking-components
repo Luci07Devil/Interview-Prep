@@ -1,0 +1,17 @@
+DNS
+  Domain name system->Client(local file -/etc/hosts)-->DNS resolver--->root-server--->TLD-server->client 
+DHCP
+  Dynamic host configuration protocol -> used to dynamically allocate IP address to the host 
+  DORA->discover,offer,request,allocate 
+        Client will broadcast the request to all the dhcp server and receive the quickest response and allocate the IP
+        IPaddress,subnet-mask,defaultgateway 
+ARP
+  Address resolution protocol =>resolve IP to mac address ,if the computer wants to find the mac address using IP address ,arp will be used 
+NAT
+ Network translation protocol -> used to translate the IP address from one to another to the outside world network
+IP 
+ contains network address ,host address -> can be found using subnetmask which is network and which is host address 
+SUBNETTING
+ logical isolation of IP range 
+ROUTER 
+ 

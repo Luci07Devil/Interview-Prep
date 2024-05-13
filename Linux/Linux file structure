@@ -1,0 +1,14 @@
+/root =>for administrator purpose 
+/dev =>device related files like usb,or other media devices
+/bin =>executable binary files like ls,cat,mkdir,pwd etc.,
+/sbin =>system executable binary files reboot,restart,ifconfig,systemctl etc.,
+/usr =>bunch of programs,libraries and shared live data 
+/var =>variable files /var/lib,/var/logs
+/tmp =>temporary files will deleted upon restart
+/mnt =>This directory is used to mount a file system temporarily.
+/proc =>all process information /proc/mem etc.,
+/boot =>The /boot directory contains the files needed to boot the system ,for example: - the GRUB boot loader’s files and your Linux kernels are stored here.
+/home =>place for secondary users 
+/media =>mount point for removable devices 
+/etc =>networking files like ssh,*.conf files
+/opt =>optional applications apart from built in 

@@ -1,0 +1,49 @@
+Packets=>encompasses senders Ip ,receivers IP , port numbers ,actual payload 
+swithces => used when data transmission happen in same netowrk(intranet)
+routers=> used when data transmission happen between two different network(Internet)
+
+
+Application->At this layer, both the end user and the application layer interact directly with the software application and adds headers to the application
+Presentation->The presentation layer formats or translates data for the application layer based on the syntax or semantics that the application accepts. and it can also handles encryption and decryption of data
+session -> creates sesssion between the server and host
+transport->The transport layer manages the delivery and error checking of data packets. It regulates the size, sequencing, and ultimately the transfer of              data between systems and hosts
+network-> receives data from data link layer and delivers them to destination network based on IP in the frames
+data link->it receives data from physical layer and converts data into frames (packets of data and IP) using MAC and LLC 
+           MAC-media access control provides flow control
+           LLC-logical link control provides flow and error control from physical layer 
+physical->it represents the electronical/optical transmission of binary data 
+
+
+
+Explanation on OSI model-> https://www.forcepoint.com/cyber-edu/osi-model#:~:text=The%20OSI%20Model%20(Open%20Systems,between%20different%20products%20and%20software.
+
+
+How packets are transmitted from one place to another (Internet and intranet)
+
+           data is wrapped as chunks of packets(SenderIP,receiverIp,ports and actual payload ),
+           How data is gonna routed will be decided by route tables 
+           Internet ->
+             wrapped packets will be sent to Internet service provider equipments ,it passes more routers and network switches to reach destination network
+           Intranet->
+             wrapped packets will be sent to destination using network devices to destination netwrk
+           once the packets reach the destination network ,it will be delivered to the destination IP and port number specified in the packets 
+           once the packets reach the destination device , it will be reassembled to the proper sequence 
+           then the destination devices process the data to serve as per the protocol
+           
+Ports and protocols:
+
+SFTP - 20 for data transfer  and 21  for file transfer
+HTTP -80
+HTTPS -443
+SCP -22
+SMTP -25
+SSH-22
+Telnet -22
+RDP-3389
+DNS -53
+
+
+
+
+
+  

@@ -1,0 +1,31 @@
+Kubernetes CrashLoopBackOff error: What is it & how to fix it? 🤔 
+
+CrashLoopBackoff is an error state that occurs when a Pod fails to start, K8s tries to restart it, it fails again and this cycle continues.
+
+This usually means that a deeper problem is consistently causing your Pod to crash upon startup.
+
+💡 You can easily detect if your Pod is experiencing this error. Run “kubectl get pods”. The faulty Pod’s status is “CrashLoopBackOff”.
+
+
+Why is K8s restarting the bad Pod?
+👉 A Pod’s default Restart policy is “Always”, so K8s will always attempt to restart a Pod that has crashed (you can configure this behavior).
+👉 Every time the Pod is restarted, K8s waits for a longer duration before attempting the next restart. This is known as Exponential back-off delay.
+During this period, the Pod’s status is set to “CrashLoopBackOff”.
+
+
+How do I fix this?
+
+1️⃣ Check the logs
+Use “kubectl logs <pod-name>” to know what’s actually going on inside your pod’s container(s). Most likely this will reveal why your app is unable to start.
+
+2️⃣ Ensure sufficient resources
+Insufficient CPU/Memory can cause pods to crash. Set appropriate resource limits and deploy on Nodes that can actually provide a sufficient amount.
+
+3️⃣ Check for Image issues
+Often, the container image you specified does not exist or is in a private repository and your authentication is misconfigured. K8s can never pull the image to run in such cases.
+
+4️⃣ Check for app configuration issues
+Check the environment variables, config files and secrets supplied to your application. Depending on the environment (prod, dev, etc), you should be supplying the right set.
+
+5️⃣ Check for Volume mount issues
+Pods can crash if they don’t get the persistent volumes they require.

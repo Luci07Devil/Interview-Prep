@@ -1,0 +1,22 @@
+Download MONGODB server and run as service brew start service mongo-community@x.x
+three components 
+  mongocli->mongocompass,mongosh
+  mongodb->mongodb server
+datatypes supported in documentd=>String,Array,object
+Databases(group of collections)-->collections(group of tables)-->document(group of data)
+Shards => subset of data 
+partial shard=>subset of shard
+replication and sharding across the nodes helps for high availability and fault tolerance 
+cardinality 
+database hotspot 
+types of sharding 
+  Range valued eg:A to I ,J to T ,U to Z 
+  HasedFunction eg:input the data and place based on the result 
+  geo sharding eg:based on location of customer 
+  directory sharding eg:based on color ,gender 
+
+sharding key is restricted to two which means only two max same shardkey present in a shard 
+
+CAP theorem=>consistency,availability and partition tolerance 
+types of noSQL databases=>documentdb,keyvalue pair,wide-column,graph database
+

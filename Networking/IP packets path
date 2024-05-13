@@ -1,0 +1,4 @@
+request from client ---->proxy---->corporate firewall--->internet---->firewall--->webserver 
+
+   and comes back to the client in same way (skipping firewall while outgoing)
+   packets contains information of our request and labeled with socket(destination IP and port)

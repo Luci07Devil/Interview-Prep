@@ -1,0 +1,44 @@
+What is the difference between hard links and soft links?
+Answer: Hard links point directly to the inode of a file, while soft links (or symbolic links) are separate files that contain the path to the target file.
+
+2. Explain the significance of the 'root' user in Linux.
+Answer: The 'root' user is the superuser with administrative privileges. It has the highest level of access and can perform any operation on the system.
+
+3. How do you find all files modified in the last 10 minutes in a directory and its subdirectories?
+Answer: Use the find command: find /path/to/directory -mmin -10.
+
+4. What is a kernel in Linux?
+Answer: The kernel is the core of the operating system that manages hardware resources and provides essential services for other parts of the system.
+
+5. Explain the purpose of the 'chmod' command.
+Answer: 'chmod' changes the permissions of a file or directory. It can add or remove read, write, and execute permissions for the owner, group, and others.
+
+6. How can you find out the current runlevel of a Linux system?
+Answer: Use the runlevel command: runlevel.
+
+7. Explain the role of the 'grep' command in Linux.
+Answer: 'grep' is used for searching text patterns in files. It can search for patterns using regular expressions and display matching lines.
+
+8. What is the purpose of the 'df' command?
+Answer: 'df' displays information about disk space usage on the filesystem.
+
+9. Explain the 'ps' command and how it is used to view processes.
+Answer: 'ps' shows information about currently running processes. Common options include ps aux to display detailed information about all processes.
+
+10. How do you change the priority of a process in Linux?
+Answer: Use the nice command to run a process with a specified priority. For example, nice -n 10 command sets a lower priority.
+
+11. What is the purpose of the 'awk' command?
+Answer: 'awk' is a versatile text processing tool that performs pattern scanning and text extraction. It is often used for data manipulation and reporting.
+
+12. Explain the role of the 'tar' command in Linux.
+Answer: 'tar' is used for creating and extracting archive files. It bundles multiple files into a single archive file and can compress the archive using various algorithms.
+
+13. How can you check the connectivity between two hosts using the 'ping' command?
+Answer: Use the ping command followed by the target IP or hostname: ping <target>.
+
+14. What is a cron job, and how do you create one?
+Answer: A cron job is a scheduled task in Linux. To create one, use the crontab -e command and add an entry specifying the schedule and the command to be executed.
+
+15. Explain the purpose of the 'iptables' command.
+Answer: 'iptables' is used for configuring the Linux kernel's netfilter firewall. It can filter, modify, or redirect network packets

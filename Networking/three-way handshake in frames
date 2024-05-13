@@ -1,0 +1,21 @@
+Establishing the connection (ACK ->ACKNOWLEDGE, SYN- SYNCHRONIZARION, FIN-No more data from sender), (C-client, S- server)
+
+frame1-> C TO S =>SYN
+frame2->S TO C =>ACK + SYN
+C TO S => ACK => 
+
+Ending the session
+
+At the end of the session =>C TO S=>ACK + FIN
+S TO C=> ACK
+S TO C => ACK + FIN
+C TO S=> ACK
+
+three way handshake 
+
+ client sends hello with client random and cipher supported
+ server sends server random with public key certificate
+ client encrypts pre-main secret with public key and sends to server which is 48 bytes of data 
+ premain secrets is decrpyed in server side using private key 
+ so the client and server creates session key from client random and server random and main secret and requests exchange will happen 
+ 
