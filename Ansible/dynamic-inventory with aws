@@ -1,0 +1,146 @@
+Dynamic Inventory in Ansible eliminates manual updates to inventory files by automatically discovering and managing infrastructure assets based on external sources like cloud providers.
+
+
+🔹 Problem: Manually maintaining inventory files for EC2 instances on AWS is tedious and error-prone, especially in dynamic environments.
+
+🔹 Solution: Ansible's AWS dynamic inventory plugin! By leveraging this plugin, Ansible dynamically fetches EC2 instance information from AWS, adapting to changes seamlessly.
+
+
+
+AWS Setup:
+
+
+
+Create an IAM user with programmatic access and permissions to list EC2 instances. Assign the necessary permissions (e.g., AmazonEC2ReadOnlyAccess policy) to this user.
+
+
+
+Ansible Configuration:
+
+Install Ansible on your local machine and create an Ansible configuration file (ansible.cfg) in your project directory or in your home directory (~/.ansible.cfg).
+
+
+
+
+[defaults]
+
+inventory = ./aws_ec2.yml
+
+
+
+Dynamic Inventory Plugin Installation:
+
+Ansible doesn't come with the AWS dynamic inventory plugin by default. You can install it via pip:
+
+
+pip install ansible[aws]
+
+
+
+AWS Dynamic Inventory Setup:
+
+Create a file named aws_ec2.yml in your project directory. This file will be your dynamic inventory script.
+
+
+
+#!/usr/bin/env python
+
+import os
+
+import sys
+
+import boto3
+
+from botocore.exceptions import ClientError
+
+from ansible.utils.shlex import shlex_split
+
+
+
+def main():
+
+ try:
+
+  # Create a boto3 client to interact with AWS EC2 and export Credentials as Env variables
+
+  ec2 = boto3.client('ec2',
+
+       aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+
+       aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+
+       region_name=os.environ.get('AWS_REGION'))
+
+  
+
+  # Get all EC2 instances
+
+  instances = ec2.describe_instances()
+
+
+
+  # Build the inventory
+
+  inventory = {'all': {'hosts': []}}
+
+
+
+  for reservation in instances['Reservations']:
+
+   for instance in reservation['Instances']:
+
+    instance_id = instance['InstanceId']
+
+    ip_address = instance.get('PublicIpAddress', 'None')
+
+    tags = {tag['Key']: tag['Value'] for tag in instance.get('Tags', [])}
+
+
+
+    # Add each instance to the inventory
+
+    inventory['all']['hosts'].append(instance_id)
+
+    inventory[instance_id] = {
+
+     'ansible_host': ip_address,
+
+     'ansible_user': 'ec2-user', # Change this if you're using a different SSH user
+
+     'ansible_ssh_private_key_file': '/path/to/your/private_key.pem', # Update this with your private key path
+
+     'tags': tags
+
+    }
+
+print(inventory)
+
+
+
+ except ClientError as e:
+
+  print(e)
+
+  sys.exit(1)
+
+
+
+if __name__ == '__main__':
+
+ main()
+
+
+
+
+Make sure the inventory script (aws_ec2.yml) is executable.
+
+chmod +x aws_ec2.yml
+
+
+
+Usage:
+
+ansible -m ping all
+
+
+This command will use the dynamic inventory script to fetch the list of EC2 instances from AWS and then execute the ping module on all of them.
