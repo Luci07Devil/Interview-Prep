@@ -1,0 +1,9 @@
+Types of networks in docker 
+
+Bridge =>all the containers will have private ip starts with 172.XXX.X.X can communicate each other in same host 
+         it can be accessed outisde world using port mapping b/w container and host
+None => completely isolated container in the host 
+host =>unlike bridge we can access from outside without port mapping 
+Overlay =>when we want to achieve communincation b/w two containers in two host ,we need overlay network
+MacVlan =>to assign mac address to docker container
+IpVlan =>to support both ipv4 and ipv6 address for container 

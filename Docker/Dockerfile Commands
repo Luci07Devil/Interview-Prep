@@ -1,0 +1,23 @@
+Dockerfile Interview Questions
+
+When RUN and CMD instructions will be executed..??
+RUN instruction will be executed while building the Docker Image.
+CMD instruction will be executed while starting the Container.
+
+What’s the different between COPY and ADD instructions..??
+Using COPY instruction,
+We can copy local files and folders from docker build context to Docker Image.
+These files and folders will be copied while creating a Docker Image.
+
+ADD instruction works similar to COPY instruction but the only different is that we can download files from remote locations that’s from Internet while creating a Docker Image.
+
+What’s the different between CMD and ENTRYPOINT instructions..??
+CMD instruction will be used to start the process or application inside the Container.
+
+ENTRYPOINT instruction also works similar to CMD instruction.
+ENTRYPOINT instruction will also be executed while creating a container.
+
+CMD instruction can be overridden while creating a Container where as ENTRYPOINT instruction cannot be overridden while creating a Container.
+
+When we have both CMD and ENTRYPOINT instructions in a Dockerfile,
+CMD instruction will not be executed and CMD instruction will be passed as an argument for ENTRYPOINT.

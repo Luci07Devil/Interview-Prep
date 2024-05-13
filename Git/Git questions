@@ -1,0 +1,7 @@
+DB Git merge and git rebase 
+Branching strategies 
+ gitflow => master->develop->featurebranches ->release->hotfixes 
+ githubflow => master->feature(deleted once deployed) (best for CI/CD / but not suitable for large teams)
+ gitlabflow => master->pre-production->production
+ trunkbaseddevelopment=>master->features(not deleted tracked feature branches)
+

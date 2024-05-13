@@ -1,0 +1,12 @@
+mvn clean->validate->compile ->test->integration-test->package->install->site
+
+The phases of maven's build lifecycle (default) are listed below. These phases will be triggered by maven commands.
+
+Validate: Determine that the project is correct and that all needed information is available.
+Compile: This command compiles the project's source code.
+Test: Test the compiled source code with an appropriate unit testing framework. These tests should not require code packaging or deployment.
+Package: Package the compiled code in a distributable format, such as a JAR.
+Integration-test: Process and deploy the package, if required, into an environment where integration tests can be performed.
+Verify: Operate any necessary checks to ensure that the package is valid and meets quality levels.
+Install: Install the package into the local repository so that it can be referenced by other projects.
+Deploy: Copy the finalized package to the remote repository to collaborate with some other developers and projects in an integration or release environment.

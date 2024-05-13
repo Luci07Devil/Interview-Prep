@@ -1,0 +1,46 @@
+# Use a base image with Java pre-installed
+FROM openjdk:11-jre-slim
+
+# Set metadata for the image
+LABEL maintainer="your-email@example.com"
+LABEL version="1.0"
+LABEL description="Dockerfile example with multiple instructions"
+
+# Set environment variables
+ENV APP_HOME=/app
+ENV JAVA_OPTS="-Xms256m -Xmx512m"
+
+# Create a directory for the application
+RUN mkdir $APP_HOME
+
+# Set the working directory in the container
+WORKDIR $APP_HOME
+
+# Install required packages (if any)
+RUN apt-get update && apt-get install -y \
+    package1 \
+    package2 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy files from the host to the container
+COPY target/my-java-app.jar $APP_HOME/my-java-app.jar
+COPY config/* $APP_HOME/config/
+
+# Add a health check instruction
+HEALTHCHECK --interval=30s --timeout=5s CMD curl -f http://localhost:8080/health || exit 1
+
+# Expose ports
+EXPOSE 8080
+EXPOSE 9090
+
+# Define volume
+VOLUME /data
+
+# Set user
+USER nobody
+
+# Run commands during image build
+RUN echo "Building my Docker image..."
+
+# Command to run the application
+CMD ["java", "-jar", "my-java-app.jar"]

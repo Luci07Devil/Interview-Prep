@@ -1,0 +1,17 @@
+1. You are tasked with setting up a CI/CD pipeline for a web application that consists of multiple microservices. The pipeline should include stages for building, testing, deploying to a staging environment, and promoting to production after manual approval. How would you design this pipeline using Jenkins?
+
+2. During the development phase, developers frequently push code changes to the main repository. However, you want to prevent unstable or untested code from being deployed to the staging environment. How can you configure Jenkins to trigger builds only when changes are pushed to specific branches (e.g., development branch), and how would you ensure that only successful builds are deployed to the staging environment?
+
+3. You have multiple teams working on different components of a complex application, each with its own Jenkins pipeline. How would you ensure consistency and standardization across these pipelines while still allowing teams to customize their workflows as needed?
+
+4. You need to deploy a new version of your application to the staging environment for testing. However, you want to ensure that the staging environment is identical to the production environment to accurately test the changes. How would you use Jenkins to automate the provisioning of staging environments and ensure consistency between staging and production environments?
+
+5. After deploying a new version of your application to the staging environment, testers discover a critical issue that requires immediate attention. How would you roll back the deployment to the previous version using Jenkins, and what steps would you take to investigate and address the issue?
+
+6. You have successfully tested the new version of your application in the staging environment and are ready to deploy it to production. How would you set up a promotion process in Jenkins that includes manual approval from stakeholders before the deployment to production?
+
+7. As part of your CI/CD pipeline, you want to monitor the performance and health of your application in both staging and production environments. How would you integrate monitoring and logging tools (e.g., Prometheus, Grafana, ELK stack) into your Jenkins pipeline to ensure timely detection and resolution of issues?
+
+8. if Your team is using Kubernetes for container orchestration, and you want to leverage Jenkins to automate the deployment of containerized applications to Kubernetes clusters. How would you configure Jenkins to interact with Kubernetes APIs and deploy containerized applications to Kubernetes clusters in both staging and production environments?
+
+9. You are responsible for managing secrets and sensitive configuration data used by your application in Jenkins. How would you securely store and manage secrets in Jenkins, and how would you ensure that only authorized users and services can access them during the CI/CD process

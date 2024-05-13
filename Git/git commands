@@ -1,0 +1,27 @@
+git config =>adding email and username in config file
+git init=> starting a new git repository
+git clone=>cloning the repo from remote into local
+git add =>staging the changes 
+git commit =>commit the staged changes
+git diff => seeing diff b/w two branches ,staged and unstaged
+git reset => resetting the stage from stage to unstage 
+   git reset [commit]
+   git reset -hard [commit]
+git status =>tell the status of working dir
+git rm=>removes the file and add commit for the same 
+git log=>logs of the repo 
+  git log -follow[filename]=>to see the logs of specific file
+git show =>content changes made will be shown with metadata 
+git tag=>create a tagged version
+git branch =>to create a branch 
+    git branch -d [branchname] => to delete the git branch
+git checkout [branchname] =>used to swithc branches 
+  git checkout -b [branchname]=>will create and switch between the branches 
+git merge =>merging the changes 
+git remote =>to connect ur local to remote repo (git remote add origin [url])
+git push =>pushing changes to remote 
+git pull =>pulling chnages to local from remote
+git stash =>stashing chnages wihtout commiting 
+  git stash pop
+  git stash list 
+git rebase -i head~3 =>it will open interactive terminal with last three commits starting with pickup verb and change that to squash and commit

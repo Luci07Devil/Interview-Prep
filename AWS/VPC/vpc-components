@@ -1,0 +1,17 @@
+VPC=>Isolated virtual private cloud with CIDR block
+SUBNETS=>VPC divided by subnets it is also a range of IP address for having public and private instances
+   PRIVATE=>can't be accessible from the internet but it can access internet through NAT gateway 
+   PUBLIC =>can access the internet through gateway and private instance ,usually ALB sits in public subnet 
+INTERNET GATEWAY=>like an entrypoint for vpc
+ROUTE TABLE=>it contains list of ip range (CIDR) and contains igw and local 
+   igw is for route the traffic to internet through IGW
+   local is for route the traffic within vpc (for eg: subnet CIDR range should be mentioned to route traffic to that subnet)
+NACL=>network access control list ,contains list of rules of applying that to subnet level
+NAT=>useful for private subnet resources to connect with internet for downloading security patches and packages
+VPC ENDPOINTS=>
+TRANSIT GATEWAY=>it is a central hub where multiple vpc can be connected and share the traffic
+VPC PEERING =>to connect two vpc 
+AWS DIRECT CONNECT=>to connect aws vpc and on premises network
+VPC FLOW LOGS=> to monitor the vpc traffice flows and logs
+VPC MIRROING=>
+

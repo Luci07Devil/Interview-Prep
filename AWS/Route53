@@ -1,0 +1,11 @@
+used for register domain name
+health check for resources
+number of routing types 
+   1.AA & AAAA for domain name to ipv4 and ipv6 routing
+   2.weighted riuting =>for routing weighted policy 30% to one instance and 70% to another instance 
+   3.fail over policy => we configure health check and when one instance fails another takes all traffic 
+   4.geo location=>routing request based on which server is near to the end user indian user to india server and us user to US server
+   5.round robin=>one request to first and second to second and so on
+   6.latency routing =>periodically checks the latency and routes the req which one performs well
+   7.simple =>when we have single instance we route to that only means use this for.eg:route req to single loadbalancer 
+ 

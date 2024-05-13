@@ -1,0 +1,44 @@
+IAM principle creation using IAM role for creating cluster 
+  create role for eks service and give action to assume roles
+IAM roles for worker nodes 
+  eks cluster policy ,create policy to make calls to EC2 instances ,secruity groups ,vpc and all
+  to create loadbalancer ,we have to create custom policy
+  create a role for eks cluster to get policy assigned on behalf of cluster 
+  Security considerations:
+     when u create cluster,it will create a security group for node to node communicaion ,vpc and allow access to 443,53 (DNS) ,10250 ports 
+     we have to mention cidr range for services 10. 172. or 192.0 if it is ipv4
+     if it is ipv6 ,then we cant control the ip assign,
+VPC CNI plugin for ENI configurations 
+worker node sizes in our project 
+    c6i.2Xlarge=>10 nodes=>cluster autoscaler=>HPA with KEDA => VPA 
+    g5.4Xlarge=>4 nodes => CA=>HPA=>VPA
+EBS volume with 500gib with gp2 planning to move gp3
+addons =>
+  VPC CNI
+  EBS CSI DRIVER 
+  KUBE PROXY 
+  CORE DNS 
+Authentication mode : configmap .
+IP family => ipv4 and ipv6
+VPC
+Subnet=>private subnets (2), protected subnets(2)
+access endpoints=> public with limited CIDR,and private access
+we use launch template for bootstrap comments ,volume attachment ,security group and all
+we connect our private subnets with tgw to connect multiple vpc 
+we have igw also in public subnets 
+
+
+CRD's installed in our cluster=>
+
+Fluentbit
+Vector 
+keda
+prometheus 
+otel-collector
+jeager
+grafana
+elasticsearch
+kubeflow 
+
+
+

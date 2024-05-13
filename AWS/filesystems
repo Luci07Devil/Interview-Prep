@@ -1,0 +1,10 @@
+S3=>simple storage bucket 
+efs=>faster than S3 and slower than EBS and can be accessible through instances as well as aws services scalble 
+     can be attached to multiple instances
+     
+     throughtput types:elastic throughput,provisioned throughput and bursting 
+     elastic throughput: it will be useful if ur workloads could meet unpredictable peak
+     provisioned throughout:if we know the performance of our requirements 
+     bursting throughput:it scales as per the amount of storage 
+ebs=>not scable faster than other and can be accessible thrrugh ec2 instances only
+     cant be attached to mulitple instances 

@@ -1,0 +1,16 @@
+Loadbalancer types in AWS
+  Application loadbalancer=>http/https 
+  network loadbalancer=>TCP/UDP
+  classic loadbalancer=>http/https/TCP/UDP
+ALB vs CLB=>ALB have additional features like multiple SSL certificates,hostbased routing ,pathbased routing ,routing requests to diff ports on same instance
+NLB=>ssl termination in the loadbalancer 
+
+types of loadbalancing techniques
+  roundrobin and roundrobing with failover=>requests serves to each server one by one 
+  weighted=>90% to server A and 10% to server B
+  DNS failover =>it will deregister the unhealthy instance and register when it is healthy
+  regionbased routing (Geolocation)=>loadbalances based on geo users to neaerst server (CDN)
+  latency routing =>latency will be checked to each server and the server performs well than the avergae will be requested to serve the request 
+ 
+  
+  

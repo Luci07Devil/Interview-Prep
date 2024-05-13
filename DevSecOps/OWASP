@@ -1,0 +1,24 @@
+top 10 OWASP
+  cross-site scripting
+  sql injection
+  XML external entities
+  security misconfiguration
+  broken authentication
+  using known vulnerbailitu
+  insufficient logging and monitoring 
+  broken access control
+  insecure deserialization
+  sensitive data exposure  - encoding and encryption while transmission and data masking ,access control 
+Ways to prevent sql injection 
+  input validation
+  least previlege to database
+  WAF 
+  database hardening 
+  educating the developer about secure coding practices
+what is cross-site scripting :
+  Cross-Site Scripting (XSS) is a vulnerability that allows attackers to inject malicious scripts into web pages viewed by other users. These scripts execute in the context of the victim's browser, enabling the attacker to steal session cookies, hijack user sessions, deface websites, or perform other malicious actions.
+ways to prevent cross-site scripting:
+  input validation
+  safer brwoser headers
+  regualr security auditing like regular SAST,DAST,penetration test to adhere to OWASP secuity policies 
+

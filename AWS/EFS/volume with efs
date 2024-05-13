@@ -1,0 +1,7 @@
+1.Create filesystem in efs and allow 2049/NFS from Clsuter CIDR 
+2.Create accesspoint with /usr/share/elasticsearch/data 
+3.install efs-csi-driver for managing efs lifecycle 
+4.create storage class by mentioning efs-drvier as provisioner 
+5.create persistent volume with size 3gb
+6.add volumelcaimtemplate helm values in elasticsearch values 
+7.git push 

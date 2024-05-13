@@ -1,0 +1,20 @@
+JENKINS_HOME/
+├── jobs/                  # Contains directories for each Jenkins job
+│   ├── job1/              # Directory for job1
+│   │   ├── config.xml     # Job configuration file
+│   │   ├── builds/        # Directory containing build records
+│   │   └── workspace/     # Workspace directory for the job
+│   ├── job2/              # Directory for job2
+│   │   ├── config.xml     # Job configuration file
+│   │   ├── builds/        # Directory containing build records
+│   │   └── workspace/     # Workspace directory for the job
+│   └── ...                # Additional job directories
+├── plugins/               # Contains installed Jenkins plugins
+├── users/                 # Contains directories for Jenkins users
+│   ├── user1/             # Directory for user1
+│   │   └── ...            # User-specific directories and files
+│   └── ...                # Additional user directories
+├── workspace/             # Global workspace for Jenkins (for freestyle projects)
+├── tools/                 # Contains tools configured in Jenkins
+├── secrets/               # Contains secrets managed by Jenkins (credentials, etc.)
+└── ...                    # Additional Jenkins directories and files

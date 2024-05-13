@@ -1,0 +1,9 @@
+first add azuread values for saml authentication and admin-user/password for basic creds if rquired 
+next add datasource sections
+next dashboard provider to mention folder,filetype,path to store the dashboard files (/var/lib/grafana/default) by default 
+next dashboard files under dashboard sections ,we can use gnetid,jsonfile using path.module if we use terraform,or raw json also 
+
+file grafana.ini present in /etc/grafana/grafana.ini
+dashboard json present in /var/lib/grafana/dashboards/<custom-path>
+
+provisioner present /etc/grafana/provisioner

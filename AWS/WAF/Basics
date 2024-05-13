@@ -1,0 +1,5 @@
+WAF-web application firewall
+
+  used to allow or block or count or captcha to access the particular aws resources like API gateway , Loadbalancer 
+  it must present in same region as resources it uses this 
+  Rules we have to define like ip sets and all 

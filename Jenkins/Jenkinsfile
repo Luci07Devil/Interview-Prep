@@ -1,0 +1,113 @@
+pipeline {
+    agent any
+
+    environment {
+        NEXUS_URL = 'https://nexus.example.com/repository/maven-releases/'
+        AWS_REGION = 'your-aws-region'
+        ECR_REPO = 'your-ecr-repo'
+        SLACK_WEBHOOK = 'your-slack-webhook-url'
+        MAVEN_HOME = tool 'Maven'
+        AWSCLI = tool 'AWSCLI'
+        SONARQUBE_HOME = tool 'SonarQubeScanner'
+        TRIVY_HOME = tool 'Trivy'
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                cloneRepository()
+            }
+        }
+
+        stage('Maven Build') {
+            steps {
+                mavenBuild()
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                sonarQubeAnalysis()
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                buildDockerImage()
+            }
+        }
+
+        stage('Trivy Scan') {
+            steps {
+                trivyScan()
+            }
+        }
+
+        stage('Deploy to EKS Cluster') {
+            steps {
+                deployToEKS()
+            }
+        }
+    }
+
+    post {
+        success {
+            sendSlackNotification("Deployment successful! :tada:", '#36a64f')
+        }
+        failure {
+            sendSlackNotification("Deployment failed! :cry:", '#ff0000')
+        }
+    }
+
+    tools {
+        maven 'Maven'
+        awscli 'AWSCLI'
+        sonarqubeScanner 'SonarQubeScanner'
+        // Add Trivy tool configuration if needed
+    }
+}
+
+def cloneRepository() {
+    git 'https://github.com/your/repo.git'
+}
+
+def mavenBuild() {
+    sh "${env.MAVEN_HOME}/bin/mvn clean package"
+}
+
+def sonarQubeAnalysis() {
+    withSonarQubeEnv('SonarQubeServer') {
+        sh "${env.SONARQUBE_HOME}/bin/sonar-scanner"
+    }
+}
+
+def buildDockerImage() {
+    def imageName = "your-image-name:${BUILD_NUMBER}_${env.BUILD_ID}"
+    docker.build(imageName, '.')
+    docker.withRegistry('https://your-ecr-url', 'ecr:your-ecr-credentials') {
+        docker.image(imageName).push()
+    }
+}
+
+def trivyScan() {
+    sh "${env.TRIVY_HOME}/trivy -o trivy_scan_${BUILD_NUMBER}_${env.BUILD_ID}.txt your-image-name:${BUILD_NUMBER}_${env.BUILD_ID}"
+}
+
+def deployToEKS() {
+    // Implement your deployment steps here
+}
+
+def sendSlackNotification(message, color) {
+    def payload = """
+    {
+        "attachments": [
+            {
+                "color": "${color}",
+                "pretext": "Jenkins Pipeline Notification",
+                "text": "${message}"
+            }
+        ]
+    }
+    """
+    sh "curl -X POST -H 'Content-type: application/json' --data '${payload}' ${env.SLACK_WEBHOOK}"
+}
