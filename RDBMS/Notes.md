@@ -150,3 +150,12 @@ Choose the appropriate function based on your requirements:
 * max()
 * min()
 * sum()
+
+
+LINKS
+> https://learnsql.com/blog/sql-window-functions-cheat-sheet/
+> https://learnsql.com/blog/sql-join-cheat-sheet/
+> https://learnsql.com/blog/sql-basics-cheat-sheet/
+> https://learnsql.com/blog/standard-sql-functions-cheat-sheet/
+> https://learnsql.com/blog/sql-for-data-analysis-cheat-sheet/
+> 
