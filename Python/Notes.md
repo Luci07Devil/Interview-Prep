@@ -1723,3 +1723,81 @@ The walrus operator is particularly useful when you need to use a value multiple
 - While the walrus operator can improve code readability, use it judiciously.
 - Avoid excessive nesting or complex expressions.
 - Follow consistent style guidelines within your codebase.
+
+## **Memoization** 
+Memoization is an optimization technique that speeds up programs by caching the results of expensive function calls based on their input parameters.
+It ensures that a method runs for the same input only once, storing the output records in a hash map. 
+In other words, it's like having a cache for method results.
+
+#### 1. Function-Based Decorators
+This method involves defining your own decorator function to cache the return values of function calls. Let's take an example using the Fibonacci sequence:
+
+```python
+# Memoization using function-based decorators
+def memoize(f):
+    cache = {}
+    def foo(x):
+        if x not in cache:
+            cache[x] = f(x)
+        return cache[x]
+    return foo
+
+@memoize
+def fibonacci(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci(n - 1) + fibonacci(n - 2)
+
+# Driver code
+print(fibonacci(20))  # Output: 6765
+```
+
+#### 2. Class-Based Decorators
+In this approach, we define a decorator class to cache the return values of function calls. Here's an example using the same Fibonacci sequence:
+
+```python
+# Memoization using class-based decorators
+class Memoize:
+    def __init__(self, f):
+        self.f = f
+        self.cache = {}
+
+    def __call__(self, *x):
+        if x not in self.cache:
+            self.cache[x] = self.f(*x)
+        return self.cache[x]
+
+@Memoize
+def fibonacci(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci(n - 1) + fibonacci(n - 2)
+
+# Driver code
+print(fibonacci(50))  # Output: 12586269025
+```
+
+#### 3. Built-In Decorator Functions
+The simplest way to implement memoization is by using built-in decorator functions. You can use the `functools.lru_cache` decorator, which automatically caches function results:
+
+```python
+import functools
+
+@functools.lru_cache(maxsize=None)  # No size limit for the cache
+def fibonacci(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci(n - 1) + fibonacci(n - 2)
+
+# Driver code
+print(fibonacci(100))  # Output: 354224848179261915075
+```
