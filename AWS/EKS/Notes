@@ -1,0 +1,38 @@
+## Amazon Elastic Kubernetes Service (EKS) 
+
+#### Amazon Elastic Kubernetes Service (EKS) for Data Engineering
+
+## Overview
+
+Amazon EKS is a managed Kubernetes service provided by AWS. It allows you to deploy, manage, and scale containerized applications using Kubernetes. As a data engineer, you can leverage EKS for various use cases related to data processing, analytics, and machine learning.
+
+## Common Use Cases
+
+1. **Deploying High-Availability Applications**:
+   - Use Elastic Load Balancing to ensure high availability across multiple Availability Zones.
+   - Deploy your data processing applications on EKS to handle spikes in traffic and maintain uptime.
+
+2. **Building Microservices Architectures**:
+   - Utilize Kubernetes service discovery features with AWS Cloud Map or Amazon VPC Lattice.
+   - Create resilient systems for data pipelines, event-driven architectures, and microservices.
+
+3. **Automating Software Release Process**:
+   - Set up continuous integration and continuous deployment (CI/CD) pipelines.
+   - Automate building, testing, and deployment of data engineering applications.
+
+4. **Running Serverless Applications**:
+   - Combine EKS with AWS Fargate to run serverless applications.
+   - Focus on application development while EKS and Fargate handle infrastructure management.
+
+5. **Executing Machine Learning Workloads**:
+   - EKS supports popular ML frameworks like TensorFlow, MXNet, and PyTorch.
+   - Take advantage of GPU support for complex ML tasks.
+
+6. **Deploying Consistently On-Premises and in the Cloud**:
+   - Use Amazon EKS Anywhere to operate Kubernetes clusters on your own infrastructure.
+   - Maintain consistency with EKS in the cloud.
+
+7. **Running Cost-Effective Batch Processing and Big Data Workloads**:
+   - Utilize Spot Instances to run batch processing, Apache Hadoop, and Spark workloads.
+   - Benefit from discounted prices by leveraging unused Amazon EC2 capacity¹.
+
