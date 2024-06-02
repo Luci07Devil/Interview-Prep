@@ -1507,3 +1507,77 @@ fib_iter = FibonacciIterator()
 for _ in range(10):
     print(next(fib_iter))
 ```
+
+## Difference between an **iterable** and an **iterator** in Python:
+
+1. **Iterable**:
+   - An iterable is any Python object that can be looped over using a `for` loop.
+   - It represents a collection of elements.
+   - Examples of iterables include lists, tuples, dictionaries, strings, sets, and more.
+   - When you use a `for` loop to iterate over an iterable, Python automatically creates an iterator behind the scenes.
+
+2. **Iterator**:
+   - An iterator is an object that implements the iterator protocol.
+   - It provides a way to access elements sequentially from an iterable.
+   - Iterators maintain state during iteration (e.g., the current position).
+   - The two essential methods for an iterator are:
+     - `__iter__()`: Returns the iterator object itself.
+     - `__next__()`: Retrieves the next value from the iterator.
+   - When you use a `for` loop, it calls the `__iter__()` method on the iterable to get an iterator and then repeatedly calls `__next__()` to retrieve elements.
+   - Iterators are memory-efficient because they load data lazily (one element at a time) rather than loading everything into memory.
+
+3. **Example**:
+   ```python
+   my_list = [1, 2, 3]
+   my_iter = iter(my_list)  # Create an iterator from the list
+   print(next(my_iter))     # Prints 1
+   print(next(my_iter))     # Prints 2
+   print(next(my_iter))     # Prints 3
+   # After this point, calling next(my_iter) will raise StopIteration
+   ```
+
+An iterable is a broader concept (anything you can loop over), while an iterator is a specific object that allows you to traverse an iterable's elements sequentially.
+
+## Lazy Evaluation in Python
+
+Lazy evaluation refers to cases when Python doesn't work out the values of an expression immediately.
+Instead, the values are returned at the point when they're required in the program.
+It can also be referred to as **call-by-need**¹.
+
+#### Eager vs. Lazy Evaluation
+
+Python evaluates expressions in two main ways:
+
+1. **Eager evaluation**: In eager evaluation, Python computes the value of an expression as soon as it encounters it. Examples of expressions that are evaluated eagerly include arithmetic operations, function calls, and list literals. For instance:
+
+    ```python
+    # Eager evaluation examples
+    result1 = 5 + 10
+    result2 = random.randint(1, 10)
+    numbers = [2, 4, 6, 8, 10]
+    ```
+
+    In the above examples, Python immediately evaluates the expressions and assigns the results to the corresponding variables.
+
+2. **Lazy evaluation**: Lazy evaluation, on the other hand, defers the computation of an expression until its value is actually needed. Lazy evaluation is particularly useful when dealing with large data sets or potentially infinite sequences. Some examples of lazy evaluation in Python include:
+
+    - **Generators**: Generators produce values on-the-fly as you iterate over them. They don't compute all values upfront, which saves memory. For example, the `range()` function returns a lazy iterable that generates values only when requested⁵.
+
+    - **Generator expressions**: Similar to list comprehensions, generator expressions create lazy iterators. They allow you to define a sequence without creating an entire list in memory. For instance:
+
+        ```python
+        squares_generator = (i * i for i in range(5))
+        ```
+
+    - **Short-circuit evaluation**: Logical operators like `and` and `or` use lazy evaluation. If the first operand determines the result, Python doesn't evaluate the second operand unnecessarily.
+
+    - **File reading operations**: When reading large files, Python reads data lazily, fetching only the necessary portions as requested.
+
+#### Advantages of Lazy Evaluation
+1. **Memory efficiency**: Lazy evaluation avoids loading all data into memory at once. It generates values on-the-fly, which is crucial for large datasets.
+2. **Performance optimization**: By computing values only when needed, lazy evaluation reduces unnecessary calculations and improves performance.
+3. **Infinite data structures**: Lazy evaluation allows you to work with potentially infinite sequences (e.g., an infinite stream of prime numbers).
+#### Disadvantages of Lazy Evaluation
+1. **Complexity**: Lazy evaluation can make code harder to reason about, especially when dealing with complex dependencies between expressions.
+2. **Order of evaluation**: The order in which expressions are evaluated may not always be intuitive, leading to unexpected behavior.
+
