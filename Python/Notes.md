@@ -1581,3 +1581,86 @@ Python evaluates expressions in two main ways:
 1. **Complexity**: Lazy evaluation can make code harder to reason about, especially when dealing with complex dependencies between expressions.
 2. **Order of evaluation**: The order in which expressions are evaluated may not always be intuitive, leading to unexpected behavior.
 
+# Short Circuiting in Python
+
+**Short-circuiting** refers to the behavior where the evaluation of a boolean expression stops as soon as the overall truth value can be determined.
+This optimization technique avoids unnecessary computations and improves performance. Let's explore short-circuiting in detail:
+**Short-Circuiting**: When Python evaluates a logical expression, it stops its evaluation if the result is already known.
+This means that certain parts of the expression are not computed because they won't affect the final outcome¹.
+
+### Short-Circuiting Techniques
+
+#### 1. Short-Circuiting with Boolean Operators
+
+- **`or` Operator**:
+    - When evaluating an `or` expression, Python checks the first statement. If it is `True`, the second statement is not evaluated, and the result is based on the first value.
+    - Example:
+
+    ```python
+    x = 5
+    y = 10
+    if x > 6 or y < 20:
+        print('OK')
+    ```
+
+    Output: `OK`
+
+- **`and` Operator**:
+    - For an `and` expression, Python checks if the first statement is `False`. If it is, the whole expression must be `False`, so it returns that value. Otherwise, it evaluates the second statement and returns the value.
+    - An expression containing `and` or `or` stops execution when the truth value has been determined. Evaluation occurs from left to right.
+
+#### 2. Short-Circuiting in `all()` and `any()` Functions
+
+- The built-in functions `all()` and `any()` also support short-circuiting:
+    - `all()`: Evaluates each element of a sequence in order until finding a result that allows an early exit.
+    - `any()`: Stops evaluation as soon as a `True` value is encountered.
+    - Example:
+
+    ```python
+    def check(i):
+        print("geeks")
+        return i
+
+    print(all(check(i) for i in [1, 1, 0, 0, 3]))  # Output: False
+    print(any(check(i) for i in [0, 0, 0, 1, 3]))  # Output: True
+    ```
+
+#### 3. Short-Circuiting in Conditional Operators
+
+- Conditional operators (`>`, `<`, etc.) also follow short-circuiting:
+    - If the result of an expression is already known, further execution is skipped.
+    - Example:
+
+    ```python
+    def check(i):
+        print("geeks")
+        return i
+
+    print(10 > 11 > check(3))  # Output: False
+    print(10 < 11 > check(3))  # Output: True
+    print(10 < 11 > check(12))  # Output: False
+    ```
+
+#### 4. Short-Circuiting in a Ladder of `if`, `elif`, `elif`, ... `else` Statements
+
+- When there is a sequence (a "ladder") of `if` and one or more `elif` statements, none of the conditions after the first `True` condition are evaluated.
+- Example:
+
+    ```python
+    a = 10
+    b = 20
+    c = 30
+
+    def printreturn(l):
+        print(l)
+        return l
+
+    if a == 11:
+        print("a == 11")
+    elif b == 20 and c == 30:
+        print("b == 20 and c == 30")
+    elif b == a + a and 0 < len(printreturn("This was evaluated")):
+        print("b == a + a")
+    ```
+
+    Output: `b == 20 and c == 30`
