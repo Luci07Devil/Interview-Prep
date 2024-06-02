@@ -2,11 +2,11 @@
 
 #### Amazon Elastic Kubernetes Service (EKS) for Data Engineering
 
-## Overview
+### Overview
 
 Amazon EKS is a managed Kubernetes service provided by AWS. It allows you to deploy, manage, and scale containerized applications using Kubernetes. As a data engineer, you can leverage EKS for various use cases related to data processing, analytics, and machine learning.
 
-## Common Use Cases
+### Common Use Cases
 
 1. **Deploying High-Availability Applications**:
    - Use Elastic Load Balancing to ensure high availability across multiple Availability Zones.
@@ -36,3 +36,43 @@ Amazon EKS is a managed Kubernetes service provided by AWS. It allows you to dep
    - Utilize Spot Instances to run batch processing, Apache Hadoop, and Spark workloads.
    - Benefit from discounted prices by leveraging unused Amazon EC2 capacity¹.
 
+## Amazon Elastic Kubernetes Service (EKS) for Data Engineering: Running Cost-Effective Batch Processing and Big Data Workloads
+
+### Overview
+
+Amazon EKS is a managed Kubernetes service that simplifies the deployment, management, and scaling of containerized applications using Kubernetes. As a data engineer, you can leverage EKS for various use cases, including running cost-effective batch processing and big data workloads.
+
+### Use Case: Running Cost-Effective Workloads
+
+#### 1. Utilizing Spot Instances
+
+- **What are Spot Instances?**
+  - Spot Instances are spare EC2 instances available at significantly lower prices compared to On-Demand instances.
+  - They are ideal for workloads that can tolerate interruptions and are fault-tolerant.
+
+- **How EKS Helps:**
+  - EKS allows you to run your data processing and big data workloads on Spot Instances.
+  - By leveraging unused EC2 capacity, you can achieve substantial cost savings.
+  - Configure your EKS cluster to use Spot Instances for specific node groups.
+
+#### 2. Running Batch Processing Workloads
+
+- **What are Batch Processing Workloads?**
+  - Batch processing involves executing a series of tasks or jobs in a non-interactive manner.
+  - Examples include ETL (Extract, Transform, Load) jobs, data aggregation, and report generation.
+
+- **How EKS Helps:**
+  - Deploy your batch processing applications as Kubernetes pods on EKS.
+  - Use Kubernetes Jobs or CronJobs to manage batch workloads.
+  - EKS ensures scalability, fault tolerance, and resource isolation for your batch jobs.
+
+#### 3. Big Data Workloads (Hadoop, Spark, etc.)
+
+- **What are Big Data Workloads?**
+  - Big data workloads involve processing large volumes of data efficiently.
+  - Technologies like Apache Hadoop, Apache Spark, and Presto are commonly used.
+
+- **How EKS Helps:**
+  - Create EKS clusters with worker nodes optimized for big data workloads.
+  - Deploy Spark applications, Hadoop MapReduce jobs, or other distributed data processing frameworks.
+  - EKS handles node scaling, networking, and resource allocation.
