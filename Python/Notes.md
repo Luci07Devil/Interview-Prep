@@ -1,31 +1,32 @@
-### Magic Methods
-* Certainly! In Python, **magic methods** (also known as **dunder methods**) are special methods that start and end with double underscores (`__`).
-* These methods are not meant to be directly invoked by you; 
-* Instead, they are called internally by the class in response to certain actions. 
+### Magic Methods (Dunder Methods)
 
-Here are some common magic methods in Python:
+In Python, special methods are also called magic methods or dunder methods.
+These methods have names that start and end with double underscores (`__`).
+They provide custom behavior for various operations and are automatically called by Python.
+These methods are not meant to be directly invoked by you; 
+Instead, they are called internally by the class in response to certain actions. 
 
-* `__init__(self, ...)`: The constructor method, called when an object is created.
-* `__del__(self)`: The destructor method, called when an object is about to be destroyed.
-* `__call__(self, ...)`: Allows an object to be called like a function.
-* `__str__(self)`: Returns a human-readable string representation of the object (used by `str()`).
-* `__repr__(self)`: Returns an unambiguous string representation of the object (used by `repr()`).
-* `__len__(self)`: Returns the length of the object (used by `len()`).
-* `__getitem__(self, key)`: Enables indexing (used by square brackets `[]`).
-* `__setitem__(self, key, value)`: Enables assignment to an index (used by square brackets `[]`).
-* `__iter__(self)`: Allows iteration over the object (used by `for` loops).
-* `__next__(self)`: Used in conjunction with `__iter__` for custom iterators.
-* `__add__(self, other)`: Defines behavior for the `+` operator.
-* `__sub__(self, other)`: Defines behavior for the `-` operator.
-* `__mul__(self, other)`: Defines behavior for the `*` operator.
-* `__divmod__(self, other)`: Defines behavior for the `//` operator.
-* `__eq__(self, other)`: Defines behavior for equality comparison (`==`).
-* `__ne__(self, other)`: Defines behavior for inequality comparison (`!=`).
-* `__lt__(self, other)`: Defines behavior for less than comparison (`<`).
-* `__le__(self, other)`: Defines behavior for less than or equal comparison (`<=`).
-* `__gt__(self, other)`: Defines behavior for greater than comparison (`>`).
-* `__ge__(self, other)`: Defines behavior for greater than or equal comparison (`>=`).
+Here are some commonly used magic methods:
 
+1. **`__init__()`**: Initializes an object.
+2. **`__str__()`**: Provides a user-friendly string representation of an object.
+3. **`__repr__()`**: Provides a developer-friendly string representation of an object.
+4. **`__add__()`**: Handles addition (`+`) between objects.
+5. **`__sub__()`**: Handles subtraction (`-`) between objects.
+6. **`__mul__()`**: Handles multiplication (`*`) between objects.
+7. **`__divmod__()`**: Handles division and remainder (`//`) between objects.
+8. **`__eq__()`**: Handles equality (`==`) comparison.
+9. **`__lt__()`**: Handles less than (`<`) comparison.
+10. **`__gt__()`**: Handles greater than (`>`) comparison.
+11. **`__len__()`**: Returns the length of an object (used for sequences).
+12. **`__getitem__()`**: Retrieves an item from an object (used for indexing).
+13. **`__setitem__()`**: Sets an item in an object (used for assignment).
+14. **`__delitem__()`**: Deletes an item from an object.
+15. **`__iter__()`**: Creates an iterator for an object.
+16. **`__next__()`**: Retrieves the next value from an iterator.
+17. **`__enter__()`** and **`__exit__()`**: Used for context management (with statements).
+
+There are many more magic methods available. For a complete reference, check the official Python documentation.
 To explore the magic methods inherited by a specific class, you can use the 'dir()' function.
 For instance, calling `dir(int)` will list all the attributes and methods defined in the `int` class.
 
