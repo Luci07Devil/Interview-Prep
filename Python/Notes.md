@@ -236,3 +236,144 @@ There are **three main types of methods** that you can use in your classes.
      result = MathUtils.add(5, 3)
      print(f"Result of addition: {result}")  # Output: Result of addition: 8
      ```
+
+## Abstraction in Python
+
+Abstraction involves separating the essential features or behaviors of an object from the specific implementation details.
+It provides a high-level view of an object, focusing on what it does rather than how it does it.
+In Python, abstraction is achieved through the use of **abstract classes** and **interfaces**.
+
+1. **Abstract Classes**:
+   - An abstract class can be considered a blueprint for other classes.
+   - It defines a set of methods that must be implemented by any child classes derived from the abstract class.
+   - Abstract classes cannot be instantiated directly; they serve as a common interface for related classes.
+   - Example of an abstract class with an abstract method:
+     ```python
+     from abc import ABC, abstractmethod
+
+     class Polygon(ABC):
+         @abstractmethod
+         def noofsides(self):
+             pass
+     ```
+
+2. **Abstract Methods**:
+   - An abstract method is a method declared in an abstract class but without an implementation.
+   - Subclasses must provide concrete implementations for abstract methods.
+   - Example of a subclass implementing the abstract method:
+     ```python
+     class Triangle(Polygon):
+         def noofsides(self):
+             print("I have 3 sides")
+     ```
+
+3. **Data Abstraction**:
+   - Data abstraction hides complex implementation details and shows only essential information to users.
+   - It allows us to define common attributes and behaviors that can be shared among multiple classes.
+   - Example of data abstraction using an abstract base class:
+     ```python
+     class Animal(ABC):
+         @abstractmethod
+         def move(self):
+             pass
+
+     class Dog(Animal):
+         def move(self):
+             print("Dog walks on four legs")
+
+     class Bird(Animal):
+         def move(self):
+             print("Bird flies in the sky")
+     ```
+
+4. **Benefits of Abstraction**:
+   - Promotes code organization and modularity.
+   - Reduces redundancy by defining common functionality in one place.
+   - Provides a clear structure for derived classes to follow.
+
+### Access Modifiers in Python
+
+Access modifiers determine the accessibility of class members (variables and methods) from outside the class. 
+Access modifiers ontrol the visibility of data members and methods within a class.
+Python uses underscores (`_`) to specify access control for specific data members and member functions. 
+Here are the three types of access modifiers:
+
+1. **Public Access Modifier**:
+   - Members declared as public are easily accessible from any part of the program.
+   - By default, all data members and member functions of a class are public.
+   - Example:
+     ```python
+     class Geek:
+         def __init__(self, name, age):
+             self.geekName = name  # Public data member
+             self.geekAge = age
+
+         def displayAge(self):  # Public member function
+             print("Age:", self.geekAge)
+
+     obj = Geek("R2J", 20)
+     print("Name:", obj.geekName)
+     obj.displayAge()
+     ```
+   - Output:
+     ```
+     Name: R2J
+     Age: 20
+     ```
+
+2. **Protected Access Modifier**:
+   - Members declared as protected are accessible only within the class and its subclasses (derived classes).
+   - To declare a protected data member, prefix it with a single underscore (`_`).
+   - Example:
+     ```python
+     class Student:
+         def __init__(self, name, roll, branch):
+             self._name = name  # Protected data member
+             self._roll = roll
+             self._branch = branch
+
+         def _displayRollAndBranch(self):  # Protected member function
+             print("Roll:", self._roll)
+             print("Branch:", self._branch)
+
+     class Geek(Student):
+         def displayDetails(self):
+             print("Name:", self._name)
+             self._displayRollAndBranch()
+
+     obj = Geek("R2J", 1706256, "Information Technology")
+     obj.displayDetails()
+     ```
+   - Output:
+     ```
+     Name: R2J
+     Roll: 1706256
+     Branch: Information Technology
+     ```
+
+3. **Private Access Modifier**:
+   - Members declared as private are accessible only within the class.
+   - To declare a private data member, prefix it with a double underscore (`__`).
+   - Note that Python name mangling changes the name of private members to `_classname__member`.
+   - Example:
+     ```python
+     class BankAccount:
+         def __init__(self, balance):
+             self.__balance = balance  # Private data member
+
+         def get_balance(self):  # Public getter method
+             return self.__balance
+
+         def set_balance(self, new_balance):  # Public setter method
+             self.__balance = new_balance
+
+     obj = BankAccount(1000)
+     print("Initial balance:", obj.get_balance())
+     obj.set_balance(1500)
+     print("Updated balance:", obj.get_balance())
+     ```
+   - Output:
+     ```
+     Initial balance: 1000
+     Updated balance: 1500
+     ```
