@@ -128,3 +128,25 @@ Choose the appropriate function based on your requirements:
 - Use `DENSE_RANK()` when you want consecutive ranks even in the presence of ties (e.g., reporting winners with first, second, and third places).
 - Use `RANK()` when you want to skip ranks for tied rows (e.g., no second or third place).
 - Use `ROW_NUMBER()` when you need a unique number for each row, regardless of duplicates¹²³⁴.
+
+## List of Window Functions
+####Ranking Functions
+* row_number()
+* rank()
+* dense_rank()
+#### Distribution Functions
+* percent_rank()
+* cume_dist()
+#### Analytic Functions
+* lead()
+* lag()
+* ntile()
+* first_value()
+* last_value()
+* nth_value()
+#### Aggregate Functions
+* avg()
+* count()
+* max()
+* min()
+* sum()
