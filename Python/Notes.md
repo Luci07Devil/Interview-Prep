@@ -377,3 +377,96 @@ Here are the three types of access modifiers:
      Initial balance: 1000
      Updated balance: 1500
      ```
+## Decorators in Python
+
+Decorators are a very useful feature in Python. 
+They allow you to wrap another function to extend its behavior dynamically.
+Decorators are a powerful tool that allows you to modify the behavior of functions or classes without permanently altering them.
+Here are some key concepts related to decorators:
+
+1. **First-Class Objects**:
+   - In Python, functions are considered first-class objects. This means that functions can be:
+     - Stored in variables.
+     - Passed as arguments to other functions.
+     - Returned from other functions.
+     - Stored in data structures like lists or hash tables.
+
+   Example:
+   ```python
+   def shout(text):
+       return text.upper()
+
+   yell = shout
+   print(yell('Hello'))  # Output: HELLO
+   ```
+
+2. **Passing Functions as Arguments**:
+   - You can pass functions as arguments to other functions.
+   - The passed function can then be called inside the receiving function.
+
+   Example:
+   ```python
+   def greet(func):
+       greeting = func("Hi, I am created by a function passed as an argument.")
+       print(greeting)
+
+   greet(shout)  # Output: HI, I AM CREATED BY A FUNCTION PASSED AS AN ARGUMENT.
+   ```
+
+3. **Returning Functions from Another Function**:
+   - You can create a function inside another function and return the inner function.
+   - This is useful for creating closures.
+
+   Example:
+   ```python
+   def create_adder(x):
+       def adder(y):
+           return x + y
+       return adder
+
+   add_15 = create_adder(15)
+   print(add_15(10))  # Output: 25
+   ```
+
+4. **Syntax for Decorators**:
+   - Decorators use the `@decorator_name` syntax.
+   - A decorator is a callable function that wraps another function and adds some code before and/or after calling the original function.
+
+   Example:
+   ```python
+   @gfg_decorator
+   def hello_decorator():
+       print("Gfg")
+   ```
+
+   This is equivalent to:
+   ```python
+   def hello_decorator():
+       print("Gfg")
+
+   hello_decorator = gfg_decorator(hello_decorator)
+   ```
+
+5. **Creating a Decorator**:
+   - A decorator function takes another function as an argument.
+   - It defines a wrapper function inside it, which executes code before and after calling the original function.
+
+   Example:
+   ```python
+   def hello_decorator(func):
+       def wrapper():
+           print("Before function call")
+           func()
+           print("After function call")
+       return wrapper
+
+   @hello_decorator
+   def say_hello():
+       print("Hello!")
+
+   say_hello()
+   # Output:
+   # Before function call
+   # Hello!
+   # After function call
+   ```
