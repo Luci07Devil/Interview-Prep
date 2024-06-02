@@ -177,3 +177,62 @@ There are different types of inheritance in Python:
    
 5. **Hybrid Inheritance**:
    - Hybrid inheritance is a combination of any of the above types. It involves multiple inheritance patterns in a single program.
+
+### Types of Methods in Python
+There are **three main types of methods** that you can use in your classes.
+
+1. **Instance Methods**:
+   - These methods are associated with an **object** of a class.
+   - They can **access and modify instance-specific data** (attributes) within the object.
+   - The first parameter of an instance method is **`self`**, which refers to the instance itself.
+   - Example:
+     ```python
+     class Student:
+         def __init__(self, name, age):
+             self.name = name
+             self.age = age
+
+         def birthday(self):
+             self.age += 1
+             return f"{self.name} has now turned {self.age}.\n" \
+                    f"{self.no_of_students - 1} students of his class have sent Birthday gifts."
+
+     student1 = Student("Chan", 13)
+     print(student1.birthday())
+     ```
+     Output:
+     ```
+     Chan has now turned 14.
+     9 students of his class have sent Birthday gifts.
+     ```
+
+2. **Class Methods**:
+   - These methods are **associated with the class itself**, rather than individual instances.
+   - They can **access and modify class-level data** (class attributes).
+   - The first parameter of a class method is **`cls`**, which refers to the class.
+   - Example:
+     ```python
+     class Student:
+         no_of_students = 10
+
+         @classmethod
+         def get_total_students(cls):
+             return cls.no_of_students
+
+     print(Student.get_total_students())  # Output: 10
+     ```
+
+3. **Static Methods**:
+   - These methods are **not tied to any specific instance or class**.
+   - They are like regular functions but are defined inside a class for organization.
+   - They **don't have access to instance-specific or class-level data**.
+   - Example:
+     ```python
+     class MathUtils:
+         @staticmethod
+         def add(a, b):
+             return a + b
+
+     result = MathUtils.add(5, 3)
+     print(f"Result of addition: {result}")  # Output: Result of addition: 8
+     ```
