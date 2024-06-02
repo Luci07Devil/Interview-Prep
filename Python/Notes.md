@@ -470,3 +470,631 @@ Here are some key concepts related to decorators:
    # Hello!
    # After function call
    ```
+Decorators are powerful tools that allow you to modify the behavior of functions or classes. 
+They enhance code reusability, readability, and maintainability.
+
+## Types of Decorators in Python
+
+1. **Function Decorators:**
+   - **Function decorators** are the most commonly used type. They are applied to regular functions.
+   - A decorator is a higher-order function that takes another function as an argument and returns a modified version of it.
+   - Example of a simple function decorator:
+     ```python
+     def make_pretty(func):
+         def inner():
+             print("I got decorated")
+             func()
+         return inner
+
+     def ordinary():
+         print("I am ordinary")
+
+     decorated_ordinary = make_pretty(ordinary)
+     decorated_ordinary()  # Output: "I got decorated" followed by "I am ordinary"
+     ```
+
+2. **Class Decorators:**
+   - **Class decorators** are applied to classes and modify their behavior.
+   - They can add or remove properties, methods, or attributes from a class.
+   - Example of a class decorator:
+     ```python
+     def my_class_decorator(cls):
+         cls.new_attribute = "Added by decorator"
+         return cls
+
+     @my_class_decorator
+     class MyClass:
+         def __init__(self):
+             self.name = "MyClass"
+
+     obj = MyClass()
+     print(obj.name)  # Output: "MyClass"
+     print(obj.new_attribute)  # Output: "Added by decorator"
+     ```
+
+3. **Method Decorators:**
+   - **Method decorators** modify the behavior of class methods.
+   - They can be used to add functionality or change the behavior of specific methods.
+   - Example of a method decorator:
+     ```python
+     def uppercase_decorator(func):
+         def wrapper(*args, **kwargs):
+             result = func(*args, **kwargs)
+             return result.upper()
+         return wrapper
+
+     class TextManipulator:
+         @uppercase_decorator
+         def capitalize(self, text):
+             return text.capitalize()
+
+     tm = TextManipulator()
+     print(tm.capitalize("hello"))  # Output: "HELLO"
+     ```
+
+4. **Property Decorators:**
+   - **Property decorators** allow you to define getter, setter, and deleter methods for class properties.
+   - They provide a clean way to access and modify attributes.
+   - Example of a property decorator:
+     ```python
+     class Circle:
+         def __init__(self, radius):
+             self._radius = radius
+
+         @property
+         def radius(self):
+             return self._radius
+
+         @radius.setter
+         def radius(self, value):
+             if value >= 0:
+                 self._radius = value
+             else:
+                 raise ValueError("Radius must be non-negative")
+
+     circle = Circle(radius=5)
+     print(circle.radius)  # Output: 5
+     circle.radius = 7
+     print(circle.radius)  # Output: 7
+     ```
+
+Decorators are a powerful feature in Python that allow you to modify functions, classes, and properties. 
+
+## Polymorphism
+
+Polymorphism is a fundamental concept in programming that allows a single type entity (such as a method, operator, or object) to represent different types in different scenarios.
+It enhances flexibility and makes code more generic and reusable.
+
+##### Examples of Polymorphism:
+
+1. **Operator Polymorphism:**
+   - The `+` operator is used extensively in Python programs. However, it does not have a single usage.
+   - For integer data types, the `+` operator performs arithmetic addition.
+     ```python
+     num1 = 1
+     num2 = 2
+     print(num1 + num2)  # Outputs 3
+     ```
+   - For string data types, the `+` operator performs concatenation.
+     ```python
+     str1 = "Python"
+     str2 = "Programming"
+     print(str1 + " " + str2)  # Outputs "Python Programming"
+     ```
+
+2. **Function Polymorphism:**
+   - The `len()` function is compatible with multiple data types in Python.
+   - It can work with strings, lists, tuples, sets, and dictionaries.
+     ```python
+     print(len("Programiz"))  # Outputs 9
+     print(len(["Python", "Java", "C"]))  # Outputs 3
+     print(len({"Name": "John", "Address": "Nepal"}))  # Outputs 2
+     ```
+
+3. **Class Polymorphism:**
+   - In object-oriented programming, we can use polymorphism while creating class methods.
+   - Different classes can have methods with the same name.
+   - For example, consider two classes: `Cat` and `Dog`.
+     ```python
+     class Cat:
+         def info(self):
+             print(f"I am a cat. My name is {self.name}. I am {self.age} years old.")
+         def make_sound(self):
+             print("Meow")
+
+     class Dog:
+         def info(self):
+             print(f"I am a dog. My name is {self.name}. I am {self.age} years old.")
+         def make_sound(self):
+             print("Bark")
+
+     cat1 = Cat("Kitty", 2.5)
+     dog1 = Dog("Fluffy", 4)
+
+     for animal in (cat1, dog1):
+         animal.make_sound()
+         animal.info()
+     ```
+   - Output:
+     ```
+     Meow
+     I am a cat. My name is Kitty. I am 2.5 years old.
+     Meow
+     Bark
+     I am a dog. My name is Fluffy. I am 4 years old.
+     ```
+
+Polymorphism allows us to write more generic and reusable code, treating different objects uniformly.
+Whether it's through operators, functions, or class methods, polymorphism enhances the flexibility and adaptability of our Python programs.
+
+Polymorphism refers to the ability of different objects or classes to respond to the same method name in a way that is specific to their individual types.
+It allows you to write code that can work with objects of various classes in a consistent and predictable manner, thereby enhancing code flexibility and reusability.
+
+1. **Function Polymorphism**:
+    - In Python, polymorphism is often seen with functions or methods that can be executed on different objects.
+    - For example, consider the `len()` function:
+        - For strings, `len()` returns the number of characters.
+        - For tuples, it returns the number of items.
+        - For dictionaries, it returns the number of key/value pairs¹.
+
+2. **Class Polymorphism**:
+    - Polymorphism is also used in class methods, where multiple classes can have the same method name.
+    - Let's say we have three classes: `Car`, `Boat`, and `Plane`, each with a `move()` method:
+        ```python
+        class Car:
+            def move(self):
+                print("Drive!")
+
+        class Boat:
+            def move(self):
+                print("Sail!")
+
+        class Plane:
+            def move(self):
+                print("Fly!")
+
+        car1 = Car("Ford", "Mustang")
+        boat1 = Boat("Ibiza", "Touring 20")
+        plane1 = Plane("Boeing", "747")
+
+        for x in (car1, boat1, plane1):
+            x.move()
+        ```
+        - Because of polymorphism, we can execute the same `move()` method for all three classes¹.
+
+3. **Inheritance and Class Polymorphism**:
+    - When we have child classes with the same method name, we can still use polymorphism.
+    - Suppose we create a parent class called `Vehicle` and make `Car`, `Boat`, and `Plane` child classes of `Vehicle`:
+        ```python
+        class Vehicle:
+            def move(self):
+                print("Move!")
+
+        class Car(Vehicle):
+            pass
+
+        class Boat(Vehicle):
+            def move(self):
+                print("Sail!")
+
+        class Plane(Vehicle):
+            def move(self):
+                print("Fly!")
+
+        car1 = Car("Ford", "Mustang")
+        boat1 = Boat("Ibiza", "Touring 20")
+        plane1 = Plane("Boeing", "747")
+
+        for x in (car1, boat1, plane1):
+            print(x.brand)
+            print(x.model)
+            x.move()
+        ```
+        - The child classes inherit properties and methods from the parent class.
+        - The `Boat` and `Plane` classes override the `move()` method, demonstrating polymorphism¹.
+
+4. **Benefits of Polymorphism**:
+    - Simplifies interactions between objects.
+    - Increases code flexibility and maintainability.
+    - Allows for more elegant and concise code.
+
+## Difference between **compile-time polymorphism** (also known as **static polymorphism**) and **runtime polymorphism** (also known as **dynamic polymorphism**):
+
+#### Compile-Time Polymorphism (Static Polymorphism)
+
+1. **Definition**:
+   - Compile-time polymorphism occurs during the compilation phase of a program.
+   - It is resolved at compile time based on the type information available.
+   - The decision about which method or function to call is made before the program runs.
+
+2. **Examples**:
+   - **Function Overloading**:
+     - In languages like C++ or Java, you can define multiple functions with the same name but different parameter lists.
+     - The appropriate function to call is determined based on the number and types of arguments during compilation.
+   - **Operator Overloading**:
+     - You can redefine the behavior of operators (e.g., `+`, `-`, `*`) for custom classes.
+     - The compiler resolves the correct operator implementation based on the operands' types.
+
+3. **Advantages**:
+   - Efficiency: Compile-time polymorphism results in faster execution because method resolution happens at compile time.
+   - Early Error Detection: Issues related to method signatures or operator usage are caught during compilation.
+
+#### Runtime Polymorphism (Dynamic Polymorphism)
+
+1. **Definition**:
+   - Runtime polymorphism occurs during program execution.
+   - It is resolved dynamically based on the actual type of the object.
+   - The decision about which method or function to call is made at runtime.
+
+2. **Examples**:
+   - **Method Overriding**:
+     - Inheritance allows you to override methods in derived classes.
+     - The method to call is determined based on the actual object type at runtime.
+   - **Virtual Functions (C++)**:
+     - In C++, you can declare a function as `virtual`.
+     - The correct method implementation is chosen based on the object type during runtime.
+
+3. **Advantages**:
+   - Flexibility: Runtime polymorphism allows for more flexible and extensible code.
+   - Late Binding: The method resolution happens dynamically, allowing for dynamic dispatch.
+
+#### Summary
+
+- **Compile-time polymorphism** is resolved at compile time based on type information, while **runtime polymorphism** is resolved dynamically during program execution.
+- Both types of polymorphism have their use cases, and understanding when to use each is essential for writing efficient and maintainable code.
+
+Certainly! Operator overloading in Python allows you to redefine the behavior of certain operators for user-defined types. You can change how operators work based on the context. Let's dive into the details of overloading arithmetic operators:
+
+## Operator Overloading in Python
+
+In Python, you can overload various arithmetic operators by defining special methods in your class. These methods have double underscores (e.g., `__add__`, `__sub__`, etc.) and allow you to customize the behavior of operators. Here are some commonly used arithmetic operators and their corresponding special methods:
+
+1. **Addition (`+`)**:
+   - To overload the `+` operator, implement the `__add__()` method in your class.
+   - Example:
+     ```python
+     class Point:
+         def __init__(self, x=0, y=0):
+             self.x = x
+             self.y = y
+         def __add__(self, other):
+             x = self.x + other.x
+             y = self.y + other.y
+             return Point(x, y)
+     p1 = Point(1, 2)
+     p2 = Point(2, 3)
+     print(p1 + p2)  # Output: (3, 5)
+     ```
+
+2. **Subtraction (`-`)**:
+   - Implement the `__sub__()` method to overload the `-` operator.
+
+3. **Multiplication (`*`)**:
+   - Implement the `__mul__()` method to overload the `*` operator.
+
+4. **Power (`**`)**:
+   - Implement the `__pow__()` method to overload the `**` operator.
+
+5. **Division (`/`)**:
+   - Implement the `__truediv__()` method to overload the `/` operator.
+
+6. **Floor Division (`//`)**:
+   - Implement the `__floordiv__()` method to overload the `//` operator.
+
+7. **Remainder (Modulo) (`%`)**:
+   - Implement the `__mod__()` method to overload the `%` operator.
+
+8. **Bitwise Left Shift (`<<`)**:
+   - Implement the `__lshift__()` method to overload the `<<` operator.
+
+9. **Bitwise Right Shift (`>>`)**:
+   - Implement the `__rshift__()` method to overload the `>>` operator.
+
+10. **Bitwise AND (`&`)**:
+    - Implement the `__and__()` method to overload the `&` operator.
+
+11. **Bitwise OR (`|`)**:
+    - Implement the `__or__()` method to overload the `|` operator.
+
+12. **Bitwise XOR (`^`)**:
+    - Implement the `__xor__()` method to overload the `^` operator.
+
+## Operator Overloading for Comparison Operators in Python
+
+Operator overloading allows you to redefine the behavior of built-in operators for user-defined classes.
+When you overload comparison operators, you customize how instances of your class are compared using operators like `<`, `<=`, `>`, `>=`, `==`, and `!=`.
+
+##### Available Comparison Operators
+
+1. **Less Than (`<`) Operator (`__lt__`)**:
+   - Method: `__lt__(self, other)`
+   - Description: Defines behavior for the less than operator (`<`). It is automatically invoked when you use the `<` operator with instances of your class.
+   - Example:
+     ```python
+     class Person:
+         def __init__(self, name, age):
+             self.name = name
+             self.age = age
+
+         def __lt__(self, other):
+             return self.age < other.age
+
+     p1 = Person("Alice", 20)
+     p2 = Person("Bob", 30)
+     print(p1 < p2)  # Output: True
+     ```
+
+2. **Less Than or Equal To (`<=`) Operator (`__le__`)**:
+   - Method: `__le__(self, other)`
+   - Description: Defines behavior for the less than or equal to operator (`<=`).
+   - Example:
+     ```python
+     # Similar to the Person class example above
+     ```
+
+3. **Greater Than (`>`) Operator (`__gt__`)**:
+   - Method: `__gt__(self, other)`
+   - Description: Defines behavior for the greater than operator (`>`).
+   - Example:
+     ```python
+     # Similar to the Person class example above
+     ```
+
+4. **Greater Than or Equal To (`>=`) Operator (`__ge__`)**:
+   - Method: `__ge__(self, other)`
+   - Description: Defines behavior for the greater than or equal to operator (`>=`).
+   - Example:
+     ```python
+     # Similar to the Person class example above
+     ```
+
+5. **Equal To (`==`) Operator (`__eq__`)**:
+   - Method: `__eq__(self, other)`
+   - Description: Defines behavior for the equal to operator (`==`).
+   - Example:
+     ```python
+     # Similar to the Person class example above
+     ```
+
+6. **Not Equal To (`!=`) Operator (`__ne__`)**:
+   - Method: `__ne__(self, other)`
+   - Description: Defines behavior for the not equal to operator (`!=`).
+   - Example:
+     ```python
+     # Similar to the Person class example above
+     ```
+
+## How It Works
+
+- Whenever you use a comparison operator (e.g., `p1 < p2`), Python automatically calls the corresponding magic method (e.g., `p1.__lt__(p2)`).
+- By changing the code inside these magic methods, you can give extra meaning to the comparison operators.
+
+## Concepts of Polymorphism
+
+1. **Function Polymorphism**:
+    - Functions or methods can behave differently based on the data types they operate on.
+    - Example: The `len()` function can work with strings, lists, tuples, sets, and dictionaries, returning specific information about each type¹.
+
+2. **Class Polymorphism**:
+    - In OOP, polymorphism is often seen in class methods.
+    - Child classes can override methods inherited from parent classes, providing specific implementations.
+    - Example: Consider a base class `Animal` with a method `make_sound()`. Subclasses like `Cat` and `Dog` can override this method to produce different sounds⁵.
+
+#### Method Overloading
+
+Method overloading involves defining multiple methods with the **same name** but **different parameters** within the same class. However, Python does not natively support method overloading. Instead, we can simulate it by defining methods with varying parameters and selectively using the appropriate one based on the arguments provided.
+
+##### Example of Simulated Method Overloading
+
+```python
+def add(datatype, *args):
+    if datatype == 'int':
+        result = 0
+    elif datatype == 'str':
+        result = ''
+    
+    for x in args:
+        result += x
+    
+    print(result)
+
+# Usage
+add('int', 5, 6)  # Output: 11
+add('str', 'Hello', 'World')  # Output: HelloWorld
+```
+
+In this example, the `add()` function behaves differently based on the data type provided as the first argument.
+
+#### Method Overriding
+
+Method overriding is a form of **runtime polymorphism**. It occurs when a child class provides a specific implementation for a method that is already defined in its parent class. The child class effectively overrides the behavior of the parent class method.
+
+##### Example of Method Overriding
+
+```python
+class Animal:
+    def make_sound(self):
+        print("Generic animal sound")
+
+class Cat(Animal):
+    def make_sound(self):
+        print("Meow")
+
+class Dog(Animal):
+    def make_sound(self):
+        print("Bark")
+
+# Usage
+cat = Cat()
+dog = Dog()
+
+cat.make_sound()  # Output: Meow
+dog.make_sound()  # Output: Bark
+```
+
+In this example:
+- The `Cat` and `Dog` classes override the `make_sound()` method inherited from the `Animal` class.
+- When we create instances of `Cat` and `Dog`, their specific `make_sound()` implementations are called⁵.
+
+#### Inheritance
+
+Inheritance is a fundamental concept in OOP. It allows a child class (subclass) to inherit properties and methods from a parent class (superclass). In Python, we achieve inheritance using the `class ChildClassName(ParentClassName)` syntax.
+
+##### Example of Inheritance
+
+```python
+class Vehicle:
+    def __init__(self, brand):
+        self.brand = brand
+
+    def info(self):
+        print(f"I am a {self.brand}")
+
+class Car(Vehicle):
+    def drive(self):
+        print("Vroom!")
+
+class Boat(Vehicle):
+    def sail(self):
+        print("Sailing smoothly!")
+
+# Usage
+my_car = Car("Toyota")
+my_boat = Boat("Yacht")
+
+my_car.info()  # Output: I am a Toyota
+my_boat.info()  # Output: I am a Yacht
+my_car.drive()  # Output: Vroom!
+my_boat.sail()  # Output: Sailing smoothly!
+```
+
+In this example:
+- `Car` and `Boat` inherit the `info()` method from the `Vehicle` class.
+- They also have additional methods specific to their types⁵.
+
+##### 1. Polymorphism with Class Methods
+
+Consider two classes, `Dog` and `Cat`, each with a method named `speak`. Despite having different implementations, we can use them interchangeably:
+
+```python
+class Dog:
+    def speak(self):
+        print("Woof!")
+
+class Cat:
+    def speak(self):
+        print("Meow!")
+
+# Usage
+dog_instance = Dog()
+cat_instance = Cat()
+
+dog_instance.speak()  # Output: Woof!
+cat_instance.speak()  # Output: Meow!
+```
+
+In this example, both `Dog` and `Cat` have a `speak` method, but they behave differently. Polymorphism allows us to treat them uniformly, regardless of their specific class.
+
+##### 2. Polymorphism with Inheritance
+
+In Python, polymorphism lets us define methods in child classes that have the same name as methods in the parent class. When a child class inherits methods from the parent class, we can modify or override those methods to better suit the child class's behavior:
+
+```python
+class Bird:
+    def intro(self):
+        print("There are many types of birds.")
+
+    def flight(self):
+        print("Most birds can fly, but some cannot.")
+
+class Sparrow(Bird):
+    def flight(self):
+        print("Sparrows can fly.")
+
+class Ostrich(Bird):
+    def flight(self):
+        print("Ostriches cannot fly.")
+
+# Usage
+bird_instance = Bird()
+sparrow_instance = Sparrow()
+ostrich_instance = Ostrich()
+
+bird_instance.intro()
+bird_instance.flight()
+
+sparrow_instance.intro()
+sparrow_instance.flight()
+
+ostrich_instance.intro()
+ostrich_instance.flight()
+```
+
+In this example, `Sparrow` and `Ostrich` override the `flight` method inherited from `Bird`. Polymorphism allows us to call the same method name on different bird instances, even though their behavior varies.
+
+##### 3. Polymorphism with a Function and Objects
+
+We can create functions that accept any object, allowing for dynamic polymorphism. Python checks the object type at runtime and calls the correct method:
+
+```python
+def describe_animal(animal):
+    animal.intro()
+    animal.flight()
+
+# Usage
+describe_animal(sparrow_instance)  # Calls Sparrow's methods
+describe_animal(ostrich_instance)  # Calls Ostrich's methods
+```
+
+In this example, the `describe_animal` function works with different bird instances, demonstrating polymorphism.
+
+## Virtual Functions in Python
+
+1. **What are Virtual Functions?**
+   - Virtual functions are a fundamental concept in object-oriented programming (OOP).
+   - They allow a derived class to override a method from its base class.
+   - The method to call is determined dynamically at runtime based on the actual type of the object.
+
+2. **How Python Handles Virtual Functions: Duck Typing**
+   - Python doesn't have explicit keywords like `virtual` or `override` as in languages like C++.
+   - Instead, Python relies on **duck typing**.
+   - Duck typing means that if an object behaves like a certain type (quacks like a duck), it is treated as that type.
+   - In Python, all methods are essentially "virtual" because they are resolved dynamically based on the runtime type of the object¹.
+
+3. **Example: Implementing Virtual Functions in Python**
+   - Consider the following example with an `Animal` base class and its derived classes `Cat` and `Dog`:
+     ```python
+     class Animal:
+         def speak(self):
+             print("Animal makes a sound")
+
+     class Cat(Animal):
+         def speak(self):
+             print("Meow")
+
+     class Dog(Animal):
+         def speak(self):
+             print("Woof")
+
+     my_pets = [Dog(), Cat(), Dog()]
+     for pet in my_pets:
+         pet.speak()
+     ```
+     Output:
+     ```
+     Woof
+     Meow
+     Woof
+     ```
+   - Here, the `speak()` method behaves differently for each derived class, demonstrating dynamic method resolution¹.
+
+4. **Abstract Base Classes (ABCs) and `abstractmethod`**
+   - Python provides the `abc` module for creating abstract base classes.
+   - An abstract base class defines a contract that derived classes must follow.
+   - The `abstractmethod` decorator marks a method as abstract, ensuring that any subclass must override it.
+   - While Python doesn't have true compile-time errors, using `abstractmethod` helps catch missing implementations during class definition (before instantiation)⁷.
+
+5. **Summary**
+   - In Python, all methods are effectively virtual due to duck typing.
+   - Use abstract base classes and `abstractmethod` to enforce method overrides.
+   - When designing modules or frameworks, consider using abstract methods to self-document requirements for subclassing.
