@@ -1664,3 +1664,62 @@ This means that certain parts of the expression are not computed because they wo
     ```
 
     Output: `b == 20 and c == 30`
+
+## Walrus Operator in Python
+
+The **walrus operator** (also known as the **assignment expression operator**) is a new syntax introduced in Python 3.8 through PEP 572. It allows you to assign a value to a variable **within an expression**. The operator gets its name from the eyes and tusks of a walrus, resembling the shape of `:=`¹².
+
+#### Basics of the Walrus Operator
+
+- The walrus operator allows you to assign a value to a variable **as part of an expression**.
+- The syntax is: `variable := expression`.
+
+#### Example Usage
+
+```python
+# Traditional assignment
+walrus = False
+print(walrus)  # Output: False
+
+# Using the walrus operator to assign True to 'walrus'
+(walrus := True)
+print(walrus)  # Output: True
+```
+
+In the example above:
+- Initially, `walrus` is assigned the value `False`.
+- Then, using the assignment expression `(walrus := True)`, we assign `True` to `walrus`.
+- After both assignments, you can refer to the assigned values by using the variable name `walrus`.
+
+#### Motivation and Use Cases
+
+The walrus operator is particularly useful when you need to use a value multiple times in a loop or an expression but don't want to repeat the calculation. Here are some common use cases:
+
+1. **Loop Conditions**:
+   - You can use the walrus operator to improve efficiency in loops by avoiding redundant calculations.
+   - Example:
+     ```python
+     while (line := input("Enter a line (or 'quit' to exit):")) != "quit":
+         print(f"You entered: {line}")
+     ```
+
+2. **List Comprehensions**:
+   - Simplify list comprehensions by using the walrus operator.
+   - Example:
+     ```python
+     numbers = [x for x in range(10) if (x := x * 2) % 3 == 0]
+     ```
+
+3. **Debugging and Logging**:
+   - Assigning values within expressions can help with debugging and logging.
+   - Example:
+     ```python
+     if (result := perform_risky_operation()) > 0:
+         print(f"Operation successful: {result}")
+     ```
+
+#### Pitfalls and Style Considerations
+
+- While the walrus operator can improve code readability, use it judiciously.
+- Avoid excessive nesting or complex expressions.
+- Follow consistent style guidelines within your codebase.
