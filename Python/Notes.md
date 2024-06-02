@@ -74,3 +74,106 @@ In Python, all exceptions must be instances of a class that derives from `BaseEx
 
 Remember that these are just some of the built-in exceptions. You can find more details in the official Python documentation.
 
+### Inheritance
+
+There are different types of inheritance in Python:
+
+1. **Single Inheritance**:
+   - In single inheritance, a derived class inherits properties from a single parent class. This enables code reusability and allows you to add new features to existing code.
+   - Example:
+     ```python
+     class Parent:
+         def func1(self):
+             print("This function is in the parent class.")
+
+     class Child(Parent):
+         def func2(self):
+             print("This function is in the child class.")
+
+     # Usage
+     obj = Child()
+     obj.func1()  # Output: This function is in the parent class.
+     obj.func2()  # Output: This function is in the child class.
+     ```
+
+2. **Multiple Inheritance**:
+   - In multiple inheritance, a class can be derived from more than one base class. All features of the base classes are inherited into the derived class.
+   - Example:
+     ```python
+     class Mother:
+         def mother(self):
+             print(self.mothername)
+
+     class Father:
+         def father(self):
+             print(self.fathername)
+
+     class Son(Mother, Father):
+         def parents(self):
+             print("Father:", self.fathername)
+             print("Mother:", self.mothername)
+
+     s1 = Son()
+     s1.fathername = "RAM"
+     s1.mothername = "SITA"
+     s1.parents()  # Output: Father: RAM, Mother: SITA
+     ```
+
+3. **Multilevel Inheritance**:
+   - In multilevel inheritance, features of the base class and the derived class are further inherited into a new derived class. It's similar to a relationship representing a child and a grandfather.
+   - Example:
+     ```python
+     class Grandfather:
+         def __init__(self, grandfathername):
+             self.grandfathername = grandfathername
+
+     class Father(Grandfather):
+         def __init__(self, fathername, grandfathername):
+             self.fathername = fathername
+             Grandfather.__init__(self, grandfathername)
+
+     class Son(Father):
+         def __init__(self, sonname, fathername, grandfathername):
+             self.sonname = sonname
+             Father.__init__(self, fathername, grandfathername)
+
+         def print_name(self):
+             print("Grandfather name:", self.grandfathername)
+             print("Father name:", self.fathername)
+             print("Son name:", self.sonname)
+
+     s1 = Son("Prince", "Rampal", "Lal mani")
+     print(s1.grandfathername)  # Output: Lal mani
+     s1.print_name()
+     # Output:
+     # Grandfather name: Lal mani
+     # Father name: Rampal
+     # Son name: Prince
+     ```
+
+4. **Hierarchical Inheritance**:
+   - In hierarchical inheritance, more than one derived class is created from a single base class. Each child class inherits from the same parent class.
+   - Example:
+     ```python
+     class Parent:
+         def func1(self):
+             print("This function is in the parent class.")
+
+     class Child1(Parent):
+         def func2(self):
+             print("This function is in child 1.")
+
+     class Child2(Parent):
+         def func3(self):
+             print("This function is in child 2.")
+
+     object1 = Child1()
+     object2 = Child2()
+     object1.func1()  # Output: This function is in the parent class.
+     object1.func2()  # Output: This function is in child 1.
+     object2.func1()  # Output: This function is in the parent class.
+     object2.func3()  # Output: This function is in child 2.
+     ```
+   
+5. **Hybrid Inheritance**:
+   - Hybrid inheritance is a combination of any of the above types. It involves multiple inheritance patterns in a single program.
