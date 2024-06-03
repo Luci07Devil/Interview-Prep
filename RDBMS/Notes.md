@@ -361,10 +361,243 @@ For example:
 CREATE INDEX IX_CustomerName ON Customer (FirstName, LastName);
 ```
 
-LINKS
+## Triggers in RDBMS
+
+**Triggers** are special types of stored procedures that automatically execute in response to specific events occurring in a database. These events are typically related to changes made to a table's data, such as insertions, updates, or deletions. Triggers play a crucial role in maintaining data integrity and enforcing business rules within the database.
+
+### Types of Triggers
+
+1. **AFTER INSERT Trigger**:
+   - Activated after data is inserted into a table.
+   - Useful for performing actions after new records are added.
+   - Example: Suppose we have an `Orders` table, and we want to update the `OrderCount` in another table after each new order is placed.
+
+2. **AFTER UPDATE Trigger**:
+   - Activated after data in a table is modified (updated).
+   - Useful for handling post-update tasks.
+   - Example: Updating a `LastModified` timestamp whenever an employee's record is updated.
+
+3. **AFTER DELETE Trigger**:
+   - Activated after data is deleted or removed from a table.
+   - Useful for maintaining historical records or logging deletions.
+   - Example: Archiving deleted records in an `EmployeeArchive` table.
+
+4. **BEFORE INSERT Trigger**:
+   - Activated before data is inserted into a table.
+   - Useful for enforcing pre-insert conditions or validations.
+   - Example: Ensuring that an employee's age is at least 25 years before adding their record.
+
+5. **BEFORE UPDATE Trigger**:
+   - Activated before data in a table is modified.
+   - Useful for enforcing business rules or constraints before updates.
+   - Example: Preventing salary updates beyond a certain limit.
+
+6. **BEFORE DELETE Trigger**:
+   - Activated before data is deleted from a table.
+   - Useful for cascading deletions or additional checks.
+   - Example: Checking if an employee can be deleted based on their role.
+
+### Examples
+
+1. **Age Validation Trigger**:
+   ```sql
+   CREATE TRIGGER CheckAge
+   BEFORE INSERT ON Employees
+   FOR EACH ROW
+   BEGIN
+       IF NEW.Age < 25 THEN
+           SIGNAL SQLSTATE '45000'
+           SET MESSAGE_TEXT = 'ERROR: AGE MUST BE AT LEAST 25 YEARS!';
+       END IF;
+   END;
+   ```
+   Explanation: This trigger ensures that no employee younger than 25 can be inserted into the `Employees` table.
+
+2. **Backup Trigger**:
+   ```sql
+   CREATE TABLE EmployeeBackup (
+       EmployeeNo INT,
+       EmployeeName VARCHAR(40),
+       Job VARCHAR(40),
+       HireDate DATE,
+       Salary INT,
+       PRIMARY KEY (EmployeeNo)
+   );
+
+   CREATE TRIGGER Backup
+   BEFORE DELETE ON Employees
+   FOR EACH ROW
+   BEGIN
+       INSERT INTO EmployeeBackup
+       VALUES (OLD.EmployeeNo, OLD.EmployeeName, OLD.Job, OLD.HireDate, OLD.Salary);
+   END;
+   ```
+   Explanation: The `Backup` trigger creates a backup record in the `EmployeeBackup` table before deleting an employee from the main table.
+
+3. **Counting Inserted Tuples Trigger**:
+   ```sql
+   DECLARE Count INT;
+   SET Count = 0;
+
+   CREATE TRIGGER CountTuples
+   AFTER INSERT ON Employees
+   FOR EACH ROW
+   BEGIN
+       SET Count = Count + 1;
+   END;
+   ```
+   Explanation: This trigger keeps track of the number of new tuples inserted using each `INSERT` statement.
+
+## **Nested triggers**
+
+**Nested triggers** in **SQL Server** refer to triggers that are fired as a result of the execution of other triggers.
+
+1. **Types of Triggers**:
+   - **AFTER Triggers**: These execute after a **DML** (Data Manipulation Language) or **DDL** (Data Definition Language) operation (e.g., **INSERT**, **UPDATE**, **DELETE**, **CREATE**, **ALTER**, **DROP**).
+   - **INSTEAD OF Triggers**: These execute in place of a DML or DDL operation.
+   - **Nested Triggers**: These are triggered by other triggers, creating a chain of trigger execution.
+
+2. **How Nested Triggers Work**:
+   - Suppose we want to ensure that no one can directly insert data into the `CarLog` table. Instead, we want to insert a subset of data from the `Car` table into `CarLog`.
+   - To achieve this, we'll create two triggers:
+     - **First Trigger (CarLog)**: Prevents direct insertion into `CarLog`.
+     - **Second Trigger (Car)**: Inserts data into `CarLog` after inserting data into `Car`.
+   - Here's an example:
+
+```sql
+-- First Trigger (CarLog)
+CREATE TRIGGER PreventCarLogInsert
+ON CarLog
+INSTEAD OF INSERT
+AS
+BEGIN
+    RAISEERROR('Direct insertion into CarLog is not allowed.', 16, 1);
+END;
+
+-- Second Trigger (Car)
+CREATE TRIGGER InsertIntoCarLog
+ON Car
+AFTER INSERT
+AS
+BEGIN
+    INSERT INTO CarLog (CarId, CarName)
+    SELECT CarId, Name
+    FROM inserted;
+END;
+```
+
+3. **Explanation**:
+   - The **`PreventCarLogInsert`** trigger prevents direct inserts into `CarLog`.
+   - The **`InsertIntoCarLog`** trigger fires after an insert into `Car`. It selects relevant data from the **`inserted`** pseudo-table (which contains newly inserted rows) and inserts it into `CarLog`.
+
+Remember that while nested triggers can be powerful, they should be used judiciously. 
+Incorrect usage can lead to problems. Always ensure proper backups before implementing triggers¹².
+
+## Performance impact of using **nested triggers** in **SQL Server**
+
+1. **Recompilations and Execution Plans**:
+   - **Nested triggers** can lead to excessive recompilations. Each time a trigger fires, SQL Server recompiles the trigger code, which can be resource-intensive.
+   - If you include calls to other objects (such as stored procedures or functions) within a trigger, it may result in frequent recompilations and inefficient execution plans being cached².
+
+2. **Parameter Sniffing**:
+   - When executing stored procedures or functions from inside a trigger, you might encounter **parameter sniffing** issues.
+   - Parameter sniffing occurs when SQL Server generates an execution plan based on the first set of parameters passed to a stored procedure or function. If subsequent executions use different parameter values, the cached plan may not be optimal.
+   - Consider using local variables within the trigger to avoid parameter sniffing problems².
+
+3. **Performance Bottlenecks**:
+   - Triggers execute within the same transaction as the original operation (e.g., **INSERT**, **UPDATE**, or **DELETE**).
+   - If a trigger performs resource-intensive tasks (such as complex calculations, data validation, or logging), it can slow down the entire transaction.
+   - Be cautious about the logic and complexity of trigger code to prevent performance bottlenecks.
+
+4. **Avoid Recursive Triggers**:
+   - Recursive triggers occur when a trigger fires another trigger, creating a chain of execution.
+   - While nested triggers are allowed, excessive recursion can lead to poor performance and unexpected behavior.
+   - Set proper conditions to prevent infinite loops caused by recursive triggers.
+
+5. **Consider Alternatives**:
+   - Evaluate whether triggers are the best solution for your requirements.
+   - Sometimes, alternative approaches (such as using stored procedures or application-level logic) can achieve the same goals without the overhead of triggers.
+
+## Advantages of using nested triggers:
+
+1. **Automated Auditing**:
+   - **Nested triggers** allow you to create more robust auditing solutions.
+   - By using the `deleted` table inside a trigger, you can build an audit trail that captures data changes (insertions, updates, or deletions) and store them in an audit table.
+   - This ensures that you have a historical record of all modifications made to your data¹.
+
+2. **Batch Data Validation**:
+   - Triggers are useful when you need to validate data in batches rather than row by row.
+   - Within a trigger's code, you have access to the `inserted` and `deleted` tables, which hold copies of data that will be stored (in the `inserted` table) or removed (in the `deleted` table) from the main table.
+   - This batch processing capability is valuable for complex validation scenarios¹.
+
+3. **Referential Integrity Across Databases**:
+   - SQL Server doesn't allow direct creation of constraints between objects in different databases.
+   - However, by using triggers, you can simulate referential integrity across databases.
+   - For example, you can enforce foreign key relationships between tables in separate databases using triggers¹.
+
+4. **Ensuring Consistent Events**:
+   - Triggers ensure that specific events always happen when data is inserted, updated, or deleted.
+   - This is crucial when dealing with complex default values for columns or when modifying data in other related tables.
+   - Triggers guarantee consistency across related data entities¹.
+
+5. **Recursion and Self-Referencing Constraints**:
+   - Nested triggers allow recursion, which means a trigger on a table can perform an action that causes another instance of the same trigger to fire.
+   - This is useful for solving self-referencing relations (constraints to itself) within the database schema¹.
+
+6. **CLR Triggers and External Code**:
+   - You can use **Common Language Runtime (CLR)** triggers to incorporate external code written in .NET languages.
+   - CLR triggers allow you to bind triggers to methods in .NET assemblies, extending the trigger functionality beyond T-SQL.
+   - This flexibility enables you to perform custom actions using external libraries or business logic¹.
+
+## **Nested triggers** - limitations and considerations
+
+1. **Performance Impact**:
+   - **Nested triggers** can lead to performance bottlenecks.
+   - Each trigger execution involves additional processing, which can impact system response times.
+   - Frequent recompilations due to nested triggers can affect query performance¹.
+
+2. **Recompilations and Execution Plans**:
+   - Triggers are recompiled each time they fire, which can be resource-intensive.
+   - Excessive recompilations may occur if triggers are nested, affecting overall performance.
+   - Properly manage triggers to avoid unnecessary recompilations¹.
+
+3. **Transaction Behavior**:
+   - Triggers execute within the same transaction as the original operation (e.g., **INSERT**, **UPDATE**, or **DELETE**).
+   - If a nested trigger fails, the entire transaction is rolled back, affecting data consistency.
+   - Be cautious about complex logic within triggers to prevent unintended rollbacks⁴.
+
+4. **Parameter Sniffing**:
+   - Nested triggers can lead to **parameter sniffing** issues.
+   - Parameter sniffing occurs when cached execution plans are based on specific parameter values.
+   - Consider using local variables within triggers to avoid parameter sniffing problems¹.
+
+5. **Avoid Recursive Triggers**:
+   - Recursive triggers occur when a trigger fires another trigger, creating a loop.
+   - Excessive recursion can lead to poor performance and unexpected behavior.
+   - Set proper conditions to prevent infinite loops caused by recursive triggers¹.
+
+6. **Maintenance Complexity**:
+   - Managing nested triggers can become complex.
+   - Debugging and maintaining code with multiple layers of triggers may be challenging.
+   - Document your trigger logic thoroughly to ease future maintenance¹.
+
+## Difference between **Row Level Triggers** and **Statement Level Triggers**
+
+### Row Level Triggers
+- **Activation Frequency**: Row level triggers execute **once for each row** in a transaction.
+- **Purpose**: They are specifically used for **data auditing** purposes.
+- **Example**: If you're inserting 1500 rows into a table, a row level trigger would execute **1500 times** (once for each row).
+
+### Statement Level Triggers
+- **Activation Frequency**: Statement level triggers execute **only once** for each single transaction, regardless of the number of rows affected.
+- **Purpose**: They are used for enforcing **additional security** on the transactions performed on the table.
+- **Example**: If you're inserting 1500 rows into a table, a statement level trigger would execute **only once**.
+
+In summary, row level triggers focus on individual rows, while statement level triggers operate at the transaction level.
+
+## LINKS
 > https://learnsql.com/blog/sql-window-functions-cheat-sheet/
 > https://learnsql.com/blog/sql-join-cheat-sheet/
 > https://learnsql.com/blog/sql-basics-cheat-sheet/
 > https://learnsql.com/blog/standard-sql-functions-cheat-sheet/
 > https://learnsql.com/blog/sql-for-data-analysis-cheat-sheet/
-> 
