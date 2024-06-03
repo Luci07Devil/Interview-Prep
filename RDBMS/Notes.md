@@ -247,6 +247,119 @@ Choose the appropriate function based on your requirements:
     - Converts a string to uppercase.
     - Example: `SELECT UPPER('Hello'); -- Returns 'HELLO'`
 
+# Indexes in Relational Databases (RDBMS)
+
+Indexes play a crucial role in optimizing query performance within relational databases.
+
+## What Are Database Indexes?
+
+A database index is an additional data structure created on top of the data in a table. When you specify an index over a table and a column (or set of columns), it creates an additional data search structure associated with that table. The primary purpose of an index is to improve query performance by speeding up data retrieval. However, this efficiency comes at the cost of additional storage space to hold the index data structure and pointers to the actual data.
+
+## Implicit Index vs. Composite Index in RDBMS
+
+## 1. Implicit Index
+
+### Description
+An implicit index is automatically created by the database system to support primary key constraints or unique constraints. It is tied to a specific column (or set of columns) and ensures data uniqueness.
+
+### Characteristics
+- **Single Column**: Implicit indexes are associated with a single column.
+- **Automatically Created**: When you define a primary key or unique constraint, the database system generates an implicit index.
+- **Hidden from Users**: Users don't explicitly create or manage implicit indexes; they are maintained by the database engine.
+
+### Use Cases
+- **Primary Key Constraint**: The primary key enforces uniqueness and identifies each row uniquely within a table.
+- **Unique Constraint**: Ensures that values in the indexed column(s) are unique across rows.
+
+### Example
+
+```sql
+-- Implicit index for primary key
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY,
+    UserName VARCHAR(50)
+);
+```
+
+## 2. Composite Index
+
+### Description
+A composite index (also known as a multi-column index) involves multiple columns. It combines the values from these columns into a single index entry.
+
+### Characteristics
+- **Multiple Columns**: Composite indexes span two or more columns.
+- **Explicitly Created**: Users define composite indexes based on specific query requirements.
+- **Order Matters**: The order of columns matters; the index is built using the specified column order.
+
+### Use Cases
+- **Query Optimization**: Composite indexes improve query performance for WHERE clauses involving multiple columns.
+- **Covering Index**: A well-designed composite index can cover all columns needed for a query, avoiding additional lookups.
+
+### Example
+
+```sql
+-- Composite index for efficient search by (City, Country)
+CREATE INDEX IX_Location ON Customers (City, Country);
+```
+
+## Types of Indexes
+
+### 1. **B-Tree Index (Nonclustered Index)**
+
+- **Description**: The B-Tree index is the most common type of index. It organizes data in a balanced tree structure, allowing efficient range queries and equality searches.
+- **When to Use**:
+  - For columns with high cardinality (many distinct values).
+  - For equality searches (e.g., WHERE clause with = operator).
+  - For range queries (e.g., BETWEEN, >, <).
+
+### 2. **Bitmap Index**
+
+- **Description**: A bitmap index uses bitmaps to represent the presence or absence of values for each row in the table. It's efficient for low-cardinality columns (few distinct values).
+- **When to Use**:
+  - For columns with few distinct values (e.g., gender, status).
+  - Not suitable for frequently updated tables.
+
+### 3. **Hash Index**
+
+- **Description**: Hash indexes use a hash function to map keys to specific locations in memory. They work well for equality searches but not for range queries.
+- **When to Use**:
+  - For exact match lookups (e.g., primary key columns).
+  - Not suitable for range queries.
+
+### 4. **Clustered Index**
+
+- **Description**: Unlike other indexes, a clustered index determines the physical order of rows in a table. Each table can have only one clustered index.
+- **When to Use**:
+  - For columns frequently used in range queries.
+  - When you want to physically order the data based on a specific column.
+
+### 5. **Full-Text Index**
+
+- **Description**: Full-text indexes enable efficient text-based searches within large text columns (e.g., articles, descriptions).
+- **When to Use**:
+  - For searching natural language content.
+  - Not suitable for small tables or non-text columns.
+
+### 6. **Spatial Index**
+
+- **Description**: Spatial indexes optimize spatial data (e.g., geographic coordinates, polygons). They support spatial queries like distance-based searches.
+- **When to Use**:
+  - For geographical or geometric data.
+  - When performing spatial queries.
+
+## How to Create an Index
+
+To create an index, use the following general syntax (specific syntax may vary by RDBMS):
+
+```sql
+CREATE INDEX index_name ON table_name (column_name_1, column_name_2, ...);
+```
+
+For example:
+
+```sql
+CREATE INDEX IX_CustomerName ON Customer (FirstName, LastName);
+```
 
 LINKS
 > https://learnsql.com/blog/sql-window-functions-cheat-sheet/
