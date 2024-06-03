@@ -52,6 +52,34 @@
 4. **Consistency vs. Flexibility**:
    - Choose based on your priority: data consistency (relational) or flexibility (NoSQL).
 
+## ACID Properties in DBMS
+
+1. **Atomicity**:
+   - **Definition**: Atomicity ensures that either the entire transaction takes place at once or doesn't happen at all. There is no midway—transactions do not occur partially.
+   - **Operations**:
+     - **Abort**: If a transaction aborts, changes made to the database are not visible.
+     - **Commit**: If a transaction commits, changes made are visible.
+   - **Example**: Consider a transaction transferring 100 units from account X to account Y. If the transaction fails after deducting from X but before adding to Y, the database becomes inconsistent. Thus, transactions must execute entirely to maintain correctness¹.
+
+2. **Consistency**:
+   - **Definition**: Consistency ensures that integrity constraints are maintained, making the database consistent before and after the transaction.
+   - **Example**: Suppose the total amount before the transaction is 700 (500 in X and 200 in Y). After the transaction, it should remain consistent (400 in X and 300 in Y). Inconsistency occurs if T1 completes but T2 fails, leaving the database in an incomplete state¹.
+
+3. **Isolation**:
+   - **Definition**: Isolation ensures that multiple transactions can occur concurrently without affecting the database's consistency.
+   - **Behavior**:
+     - Changes within a transaction are not visible to other transactions until committed.
+     - Execution of concurrent transactions results in a state equivalent to serial execution.
+   - **Example**: Let X = 500, Y = 500. If two transactions (T and T'') read and update X and Y concurrently, proper isolation prevents inconsistencies¹.
+
+4. **Durability**:
+   - **Definition**: Durability ensures that once a transaction completes, updates and modifications are stored in and written to disk. They persist even after system failures.
+   - **Guarantee**: Even if the system crashes, committed changes remain intact.
+   - **Example**: After a successful transaction, the database remains durable, safeguarding data integrity¹.
+
+ACID properties provide a robust foundation for reliable transaction processing in DBMS. 
+They ensure that each transaction acts as a single unit, produces consistent results, operates independently, and persists its updates⁵.
+
 ## `RANK()`, `ROW_NUMBER()`, and `DENSE_RANK()` functions in SQL.
 
 ### RANK()
@@ -150,6 +178,74 @@ Choose the appropriate function based on your requirements:
 * max()
 * min()
 * sum()
+
+## Most commonly used SQL aggregate functions
+
+1. **`AVG(column_name)`**:
+   - Returns the average value of a numeric column.
+   - Example: Calculate the average salary from an "Employees" table: `SELECT AVG(Salary) FROM Employees;`
+
+2. **`COUNT(column_name | *)`**:
+   - Returns the number of rows in a table or the number of non-null values in a specified column.
+   - Example: Count the total number of orders in an "Orders" table: `SELECT COUNT(*) FROM Orders;`
+
+3. **`MAX(column_name)`**:
+   - Returns the maximum value within the selected column.
+   - Example: Find the highest product price from a "Products" table: `SELECT MAX(Price) FROM Products;`
+
+4. **`MIN(column_name)`**:
+   - Returns the minimum value within the selected column.
+   - Example: Retrieve the lowest temperature from a "Weather" table: `SELECT MIN(Temperature) FROM Weather;`
+
+5. **`SUM(column_name)`**:
+   - Returns the sum of all values in a numeric column.
+   - Example: Calculate the total revenue from an "Invoices" table: `SELECT SUM(TotalAmount) FROM Invoices;`
+
+## SQL string functions
+
+1. **`ASCII(string)`**:
+   - Returns the ASCII value of the first character in the input string.
+   - Example: `SELECT ASCII('A'); -- Returns 65`
+
+2. **`CHAR(index)`**:
+   - Returns the character corresponding to the specified ASCII value.
+   - Example: `SELECT CHAR(65); -- Returns 'A'`
+
+3. **`CHARINDEX(substring, string)`**:
+   - Returns the starting position of a substring within a string.
+   - Example: `SELECT CHARINDEX('world', 'Hello, world!'); -- Returns 8`
+
+4. **`CONCAT(string1, string2, ...)`**:
+   - Concatenates two or more strings.
+   - Example: `SELECT CONCAT('Hello', ' ', 'World'); -- Returns 'Hello World'`
+
+5. **`LEFT(string, length)`**:
+   - Returns the leftmost characters of a string up to the specified length.
+   - Example: `SELECT LEFT('Hello', 3); -- Returns 'Hel'`
+
+6. **`LEN(string)`**:
+   - Returns the length (number of characters) of a string.
+   - Example: `SELECT LEN('Hello'); -- Returns 5`
+
+7. **`LOWER(string)`**:
+   - Converts a string to lowercase.
+   - Example: `SELECT LOWER('Hello'); -- Returns 'hello'`
+
+8. **`REPLACE(string, old_substring, new_substring)`**:
+   - Replaces occurrences of a substring with another substring.
+   - Example: `SELECT REPLACE('Hello, world!', 'world', 'universe'); -- Returns 'Hello, universe!'`
+
+9. **`RIGHT(string, length)`**:
+   - Returns the rightmost characters of a string up to the specified length.
+   - Example: `SELECT RIGHT('Hello', 2); -- Returns 'lo'`
+
+10. **`TRIM(string)`**:
+    - Removes leading and trailing spaces from a string.
+    - Example: `SELECT TRIM('   Hello   '); -- Returns 'Hello'`
+
+11. **`UPPER(string)`**:
+    - Converts a string to uppercase.
+    - Example: `SELECT UPPER('Hello'); -- Returns 'HELLO'`
 
 
 LINKS
