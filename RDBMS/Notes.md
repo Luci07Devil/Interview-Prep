@@ -80,6 +80,13 @@
 ACID properties provide a robust foundation for reliable transaction processing in DBMS. 
 They ensure that each transaction acts as a single unit, produces consistent results, operates independently, and persists its updates⁵.
 
+**ACID properties** in **Relational Database Management Systems (RDBMS)** are fundamental principles that ensure reliable and predictable transactional behavior. They stand for:
+
+1. **Atomicity**: Transactions are either fully completed or fully rolled back, ensuring all-or-nothing execution.
+2. **Consistency**: Transactions maintain the database's integrity by transitioning from one consistent state to another.
+3. **Isolation**: Transactions occur independently, without interfering with each other, preventing data anomalies.
+4. **Durability**: Once committed, changes persist even after system failures or crashes¹²³⁴⁵.
+
 ## `RANK()`, `ROW_NUMBER()`, and `DENSE_RANK()` functions in SQL.
 
 ### RANK()
@@ -929,6 +936,85 @@ They serve different needs and can complement each other in a comprehensive data
     - **Snowflake on External S3**: A data warehouse leveraging external storage for efficient querying².
 
 Remember, while a data lake holds raw and unprocessed data, a data warehouse stores structured data for specific analytical purposes.
+
+## Different types of tables in a database management system (DBMS):
+
+1. **Base Tables**:
+   - These hold persistent data and are the primary tables where data is stored.
+   - Base tables are used for regular data storage and retrieval.
+   - For example, an "Employee" table storing employee records.
+
+2. **Temporary Tables**:
+   - Temporary tables are used for temporary data storage during a session or a specific task.
+   - They exist only for a limited duration and are automatically dropped when the session ends.
+   - Two types:
+     - **Local Temporary Tables**: Visible only within the current session and deleted when the session closes.
+     - **Global Temporary Tables**: Visible to all sessions until the session that created them disconnects⁷.
+   - Useful for intermediate results, staging, or one-off tasks.
+
+3. **Dimensional Tables**:
+   - Commonly used in data warehousing and business intelligence.
+   - Represent dimensions (attributes) of data, such as time, geography, or product categories.
+   - Often used in star schema or snowflake schema designs.
+   - Examples: "Time Dimension," "Product Dimension."
+
+4. **Fact Tables**:
+   - Also part of data warehousing.
+   - Store quantitative data (facts) related to business transactions or events.
+   - Fact tables are associated with dimension tables.
+   - Examples: "Sales Fact Table," "Inventory Fact Table."
+
+## Different types of database schemas in the context of Database Management Systems (DBMS):
+
+1. **Physical Database Schema**:
+   - The physical schema defines how data is stored physically in storage systems, such as files and indices. It includes the actual code or syntax needed to create the database structure.
+   - Database administrators decide where and how to store data within different storage blocks.
+   - Example: Deciding which data goes into which disk block or file.
+   - ¹
+
+2. **Logical Database Schema**:
+   - The logical schema defines logical constraints applied to stored data. It describes tables, views, entity relationships, and integrity constraints.
+   - It specifies how data is organized in tables and how attributes within a table are connected.
+   - Example: Designing tables, defining relationships between them, and ensuring data quality through integrity constraints.
+   - ¹
+
+3. **View Database Schema**:
+   - The view-level design allows end-users to interact with the database without needing to understand the underlying data storage mechanisms.
+   - Views provide an interface for users to query and manipulate data.
+   - Example: Creating a view that combines data from multiple tables for reporting purposes.
+   - ¹
+
+Remember that these schema types serve different purposes and play essential roles in database design and management.
+
+## LOGICAL DATABASE SCHRMA
+The **logical database schema** defines the comprehensive logical structure of a database, including detailed data types, keys, field lengths, validation rules, views, indexes, explicit table relationships, joins, and normalization¹. Here are some common types of logical database schemas:
+
+1. **Flat Model**:
+   - In this simple schema, data is stored in a single table without any relationships.
+   - It's suitable for small datasets with minimal complexity.
+
+2. **Hierarchical Model**:
+   - Data is organized in a tree-like structure with parent-child relationships.
+   - Commonly used in file systems and XML databases.
+
+3. **Network Model**:
+   - Similar to the hierarchical model but allows multiple parent-child relationships.
+   - Used in some legacy databases.
+
+4. **Relational Model**:
+   - The most widely used schema type.
+   - Organizes data into tables with rows and columns.
+   - Relationships are defined through keys (e.g., primary keys, foreign keys).
+
+5. **Star Schema**:
+   - Commonly used in data warehouses.
+   - Central fact table surrounded by dimension tables.
+   - Simplifies complex queries for reporting and analytics.
+
+6. **Snowflake Schema**:
+   - An extension of the star schema.
+   - Dimension tables are normalized into multiple related tables.
+   - Reduces data redundancy but can be more complex to query.
 
 ## LINKS
 > https://learnsql.com/blog/sql-window-functions-cheat-sheet/
