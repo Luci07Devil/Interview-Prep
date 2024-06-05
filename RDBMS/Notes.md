@@ -595,6 +595,341 @@ Incorrect usage can lead to problems. Always ensure proper backups before implem
 
 In summary, row level triggers focus on individual rows, while statement level triggers operate at the transaction level.
 
+## To address the "lost update" problem
+database systems employ various techniques to ensure data consistency and prevent concurrent transactions from interfering with each other. Here are some strategies:
+
+1. **Locking Mechanisms**:
+   - **Exclusive Locks**: When a transaction modifies a record, it acquires an exclusive lock on that record. Other transactions must wait until the lock is released.
+   - **Shared Locks**: Transactions reading data acquire shared locks. Exclusive locks are only granted when no shared locks exist.
+   - **Drawback**: Lock contention can lead to performance issues.
+
+2. **Isolation Levels**:
+   - Specify the level of isolation between concurrent transactions.
+   - Common levels:
+     - **Read Uncommitted**: No locks; dirty reads possible.
+     - **Read Committed**: Locks acquired during read; no dirty reads.
+     - **Repeatable Read**: Locks acquired during read and held until the end of the transaction.
+     - **Serializable**: Strongest isolation; prevents anomalies.
+   - **Drawback**: Higher isolation levels may impact performance.
+
+3. **Timestamp-Based Concurrency Control**:
+   - Assign timestamps to transactions.
+   - Ensure that transactions with earlier timestamps execute first.
+   - Prevents lost updates by enforcing a chronological order.
+   - **Drawback**: Requires a reliable timestamp mechanism.
+
+4. **Optimistic Concurrency Control**:
+   - Transactions read data without acquiring locks.
+   - Before committing, check if any other transaction modified the same data.
+   - If conflicts occur, handle them (e.g., retry or abort).
+   - **Drawback**: Requires additional checks during commit.
+
+5. **Multi-Version Concurrency Control (MVCC)**:
+   - Maintain multiple versions of data.
+   - Each transaction sees a consistent snapshot based on its start time.
+   - Avoids lost updates by allowing concurrent reads and writes.
+   - **Drawback**: Increased storage overhead.
+
+Remember, the choice of method depends on the specific use case, workload, and system requirements. 😊
+
+## TABLES & RELATIVE TERMS
+In a **Relational Database Management System (RDBMS)**, tables play a crucial role in organizing and storing data.
+
+1. **Table**:
+   - A table is a collection of data elements organized in rows and columns.
+   - It represents a set of related data.
+   - Each row in a table is called a **tuple**, **record**, or **row**.
+   - Example: Consider an "Employee" table with columns like ID, Name, Age, and Salary¹.
+
+2. **Tuple (Record or Row)**:
+   - A single entry in a table.
+   - Represents a specific set of related data.
+   - For instance, the "Employee" table has multiple tuples, each corresponding to an employee.
+
+3. **Attribute**:
+   - A table consists of several records (rows), and each record can be broken down into smaller parts of data known as attributes.
+   - Attributes correspond to the columns in the table.
+   - Example: In the "Employee" table, the attributes are ID, Name, Age, and Salary.
+
+4. **Attribute Domain**:
+   - When defining an attribute in a relation (table), we specify the type of values it can hold.
+   - For instance, the "Name" attribute holds employee names, and saving an address there would violate the relational database model.
+
+5. **Relation Schema**:
+   - Describes the structure of a relation (table).
+   - Includes the relation's name, attributes, and their names and types.
+
+6. **Relation Key**:
+   - An attribute that uniquely identifies a particular tuple (row) in a relation.
+   - For example, in the "Employee" table, the ID attribute can be used as a key to fetch data for each employee.
+
+## NORMALIZATION
+#### Types of **database normalization** in **Relational Database Management Systems (RDBMS)**:
+
+1. **First Normal Form (1NF)**:
+   - Criteria:
+     - Each cell must hold only one value (atomicity).
+     - A primary key uniquely identifies each row.
+     - No duplicated rows or columns.
+   - Example:
+     Consider a table with student data:
+     ```
+     Student ID | Name       | Courses
+     ---------------------------------
+     1          | John Smith | Math, History
+     2          | Maria G.   | Biology
+     ```
+     Normalize by splitting the "Courses" column into separate rows.
+
+2. **Second Normal Form (2NF)**:
+   - Criteria:
+     - Must be in 1NF.
+     - Non-key attributes depend entirely on the primary key.
+   - Example:
+     Separate student-course relationships:
+     ```
+     Student ID | Course ID
+     -----------------------
+     1          | Math
+     1          | History
+     2          | Biology
+     ```
+
+3. **Third Normal Form (3NF)**:
+   - Criteria:
+     - Must be in 2NF.
+     - Non-key attributes depend only on the primary key.
+   - Example:
+     Separate teacher information:
+     ```
+     Course ID | Teacher
+     -------------------
+     Math      | Prof. A
+     History   | Prof. B
+     Biology   | Prof. C
+     ```
+
+## Apply **database normalization** in practice. 
+Normalization is the process of organizing data in a database to reduce redundancy and improve data integrity.
+
+1. **Understand Your Data**:
+   - Begin with a rough idea of the data you want to store.
+   - Identify the entities (e.g., students, courses) and their relationships.
+
+2. **Start with Unnormalized Data**:
+   - Consider an example student database:
+     ```
+     Student ID | Student Name | Fees Paid | Course Name | Class 1 | Class 2 | Class 3
+     1          | John Smith   | 200       | Economics  | Economics | Biology | -
+     2          | Maria Griffin| 500       | Comp Sci   | Biology  | -       | -
+     ```
+
+3. **Apply Normalization Rules**:
+   - Normalize to achieve efficiency, accuracy, and prevent anomalies.
+   - Follow the normal forms (1NF, 2NF, 3NF, etc.).
+
+4. **First Normal Form (1NF)**:
+   - Ensure each cell holds only one value (atomicity).
+   - Create separate rows for repeating groups (e.g., classes).
+
+5. **Second Normal Form (2NF)**:
+   - Non-key attributes depend entirely on the primary key.
+   - Separate student-course relationships:
+     ```
+     Student ID | Course ID
+     -----------------------
+     1          | Economics
+     1          | Biology
+     2          | Biology
+     ```
+
+6. **Third Normal Form (3NF)**:
+   - Non-key attributes depend only on the primary key.
+   - Separate teacher information:
+     ```
+     Course ID | Teacher
+     -------------------
+     Economics | Prof. A
+     Biology   | Prof. B
+     ```
+
+7. **Beyond 3NF**:
+   - Additional normal forms (e.g., Boyce-Codd Normal Form) address complex scenarios.
+
+## PARTITIONING
+
+Partitioning in an RDBMS is a technique used to divide a large database table into smaller, more manageable pieces called **partitions**. 
+By doing so, the RDBMS can process data more efficiently by accessing only the relevant partitions instead of scanning the entire table. 
+There are several types of partitioning:
+
+1. **Range Partitioning**: In this method, the table is partitioned based on a range of values in a specific column. For example, if a table is partitioned by date, each partition could contain data for a specific date range.
+
+2. **List Partitioning**: Here, the table is partitioned based on a specific list of values in a column. For instance, if a table is partitioned by country, each partition could contain data for a specific list of countries.
+
+3. **Hash Partitioning**: This approach involves partitioning the table based on a hash function applied to a specific column. For example, if a table is partitioned by customer ID, each partition could be assigned based on the hash value of the customer ID.
+
+4. **Composite Partitioning**: In composite partitioning, a table is partitioned using a combination of partitioning techniques. For instance, a table could be range partitioned by date and then list partitioned by region within each date range.
+
+**Example of Range Partitioning**:
+Suppose we have a table called "sales" that contains sales data for a company. The table has columns like `id`, `date`, `customer_id`, `product_id`, and `amount`. To improve query performance, we could range partition the table by date. For example, we could create partitions for each quarter of the year:
+
+```sql
+CREATE TABLE sales (
+    id INT,
+    date DATE,
+    customer_id INT,
+    product_id INT,
+    amount DECIMAL(10,2)
+) PARTITION BY RANGE(YEAR(date)*100 + QUARTER(date)) (
+    PARTITION p1 VALUES LESS THAN (201601),
+    PARTITION p2 VALUES LESS THAN (201604),
+    PARTITION p3 VALUES LESS THAN (201607),
+    PARTITION p4 VALUES LESS THAN (201610),
+    PARTITION p5 VALUES LESS THAN (201701)
+);
+```
+
+In this example, the table is partitioned by the year and quarter of the `date` column, with each partition containing data for a specific quarter of the year.
+
+**Example of List Partitioning**:
+Consider a table called "customers" with columns `id`, `name`, and `country`. To improve query performance, we could list partition the table by country. For instance:
+
+```sql
+CREATE TABLE customers (
+    id INT,
+    name VARCHAR(50),
+    country VARCHAR(50)
+) PARTITION BY LIST(country) (
+    PARTITION p1 VALUES IN ('USA', 'Canada'),
+    PARTITION p2 VALUES IN ('Mexico', 'Brazil'),
+    PARTITION p3 VALUES IN ('France', 'Germany'),
+    PARTITION p4 VALUES IN ('UK', 'Italy'),
+    PARTITION p5 VALUES IN ('Japan', 'China')
+);
+```
+
+In this example, the table is partitioned by the `country` column, with each partition containing data for specific countries¹².
+
+## **Hash partitioning** 
+**Hash Partitioning** is a technique used to divide a table into partitions based on a hash function applied to a specific column. 
+Unlike range or list partitioning, where data is grouped by specific values or ranges, hash partitioning distributes data uniformly across partitions using a hashing algorithm. Here's how it works:
+
+1. **Hash Function**:
+   - You choose a column (the **partitioning key**) that will be used for hashing.
+   - The hash function generates a hash value for each row based on the partitioning key.
+   - The hash value determines which partition the row belongs to.
+
+2. **Example**:
+   - Suppose we have a table called "Citizenship" with an `Identity Number` column (like a Social Security number).
+   - Hash partitioning is suitable when this column doesn't fit well into range or list partitions.
+   - We'll create a hash-partitioned table with four partitions:
+     ```sql
+     CREATE TABLE Citizenship (
+         IdentityNumber VARCHAR(20),
+         Name VARCHAR(50),
+         Address VARCHAR(100)
+     ) PARTITION BY HASH (IdentityNumber) PARTITIONS 4;
+     ```
+   - The data will be distributed across the partitions based on the hash value of the `IdentityNumber`.
+
+3. **Considerations**:
+   - Hash partitioning creates a fixed number of partitions (specified by `PARTITIONS`).
+   - It's useful for distributing data evenly and achieving load balancing.
+   - However, it doesn't guarantee specific ranges or values in partitions.
+
+Remember that hash partitioning is ideal when other methods (range, list) don't suit your data distribution. Feel free to ask if you need further clarification! 😊👍
+
+Choosing a suitable column for partitioning depends on your specific use case and data distribution. Here are some considerations:
+
+1. **Cardinality**:
+   - Choose a column with high cardinality (many distinct values). This ensures that partitions are evenly distributed.
+   - Examples: `customer_id`, `product_code`, or `order_number`.
+
+2. **Query Patterns**:
+   - Consider the most common queries. Partition by a column frequently used in WHERE clauses or JOIN conditions.
+   - For sales data, partitioning by `date` or `region` might be beneficial.
+
+3. **Data Distribution**:
+   - Analyze data distribution. If certain values dominate, partitioning by that column may not evenly distribute data.
+   - Avoid partitioning by low-cardinality columns (e.g., boolean flags).
+
+4. **Size and Growth**:
+   - Partition large tables to manage growth. Choose a column related to data volume.
+   - For example, partitioning by date can help manage historical data growth.
+
+5. **Maintenance Impact**:
+   - Consider maintenance tasks (index rebuilds, archiving). Partitioning affects these operations.
+   - Choose a column that minimizes maintenance overhead.
+
+# Slowly Changing Dimensions (SCD) and Their Types
+
+In modern data analytics, organizations utilize data warehouses to store vast amounts of historical data, ensuring data analysts can easily access critical information. While most attributes or dimensions of data in a warehouse remain static, certain dimensions like customer addresses, product specifications, or employee designations evolve over time. These evolving dimensions are also known as **Slowly Changing Dimensions (SCDs)** in data science. SCDs help businesses retain their original records while also tracking changes over time, maintaining the integrity of data warehouses and ensuring that insights derived from stored data account for its slowly evolving nature¹.
+
+## Dimensions and Measures in Data Science
+- **Dimensions**: Qualitative values such as names, dates, or geographical data. They categorize, segment, and reveal essential details in data. For example, sales data can include dimensions like Region, Product Type, or Time Period.
+- **Measures**: Numeric or quantitative values within the scope of dimensions. These metrics (e.g., Total Sales, Profit Margin, or Number of Units Sold) provide statistical information for data-driven decision-making¹.
+
+## Slowly Changing Dimensions (SCD) Types
+1. **Type 0 SCD (Fixed Dimension)**:
+   - No changes allowed; dimension remains constant.
+   - Example: A reference table containing country codes.
+2. **Type 1 SCD (Overwriting)**:
+   - Update the record directly; no historical values are retained.
+   - Example: Employee salary updates.
+3. **Type 2 SCD (Row Versioning)**:
+   - Track changes as version records with flags, active dates, and other metadata.
+   - Example: Customer address changes.
+4. **Type 3 SCD (Previous Value Column)**:
+   - Add a new column to show the previous value.
+   - Example: Product price changes.
+5. **Type 4 SCD (History Table)**:
+   - Maintain a separate history table for changes.
+   - Example: Employee promotions.
+6. **Type 6 SCD (Hybrid)**:
+   - Combines aspects of other types (e.g., Type 1 and Type 2).
+   - Example: Product category changes²⁴.
+
+## **Data Lake** and **Data Warehouse**:
+
+1. **Data Lake**:
+    - **Definition**: A data lake is a centralized repository that ingests and stores large volumes of data in its original form. It can accommodate all types of data from any source, including structured (like database tables), semi-structured (such as XML files), and unstructured (like images or audio files).
+    - **Storage Approach**: Data lakes store data without sacrificing fidelity, allowing raw, cleansed, and curated data to coexist.
+    - **Use Cases**:
+        - **Big Data Analytics**: Data lakes power big data analytics, machine learning, and predictive analytics.
+        - **Scalable Architecture**: They provide core data consistency across various applications.
+        - **Flexible Data Types**: Data lakes handle diverse data types without predefined schemas.
+    - **Example Use Case**:
+        - *Streaming Media*: Subscription-based streaming companies analyze customer behavior data to improve recommendation algorithms.
+    - **Key Point**: Data lakes hold raw, unstructured data and support big data analytics and machine learning¹³.
+
+2. **Data Warehouse**:
+    - **Definition**: A data warehouse is designed to be a repository for structured data that has been treated and transformed with a specific purpose in mind. It's optimized for efficient querying and reporting.
+    - **Structured Data**: Data warehouses store data that is already structured (e.g., cleaned, transformed) for specific business intelligence needs.
+    - **Use Cases**:
+        - **Business Intelligence**: Data warehouses enable efficient querying and reporting for business insights.
+        - **Structured Data Storage**: They organize data into predefined schemas.
+    - **Example Use Case**:
+        - *Finance*: Investment firms use structured market data for efficient portfolio risk management.
+    - **Key Point**: Data warehouses are repositories for structured data, while data lakes hold data of all structure types, including raw and unprocessed data²⁴.
+
+In summary, data lakes accommodate diverse data types, while data warehouses focus on structured data for specific analytical purposes. 
+They serve different needs and can complement each other in a comprehensive data architecture. 
+
+## Examples - **Data Lakes** and **Data Warehouses**:
+
+1. **Data Lake Examples**:
+    - **Streaming Media**: Subscription-based streaming companies collect and process insights on customer behavior using data lakes. They can improve their recommendation algorithms based on this data.
+    - **Finance**: Investment firms use real-time market data stored in data lakes to efficiently manage portfolio risks.
+    - **Healthcare**: Hospitals rely on big data from data lakes to streamline patient pathways, leading to better outcomes and reduced costs of care¹³.
+
+2. **Data Warehouse Examples**:
+    - **Amazon Redshift on S3 (Amazon Spectrum)**: A classic data warehouse integrated with a data lake.
+    - **Azure Synapse on ADLS**: Another example of a data warehouse combined with a data lake.
+    - **Google Big Query on Google Cloud Storage**: A data warehouse solution tightly coupled with a storage system.
+    - **Snowflake on External S3**: A data warehouse leveraging external storage for efficient querying².
+
+Remember, while a data lake holds raw and unprocessed data, a data warehouse stores structured data for specific analytical purposes.
+
 ## LINKS
 > https://learnsql.com/blog/sql-window-functions-cheat-sheet/
 > https://learnsql.com/blog/sql-join-cheat-sheet/
