@@ -87,6 +87,15 @@ They ensure that each transaction acts as a single unit, produces consistent res
 3. **Isolation**: Transactions occur independently, without interfering with each other, preventing data anomalies.
 4. **Durability**: Once committed, changes persist even after system failures or crashes¹²³⁴⁵.
 
+**NoSQL databases** generally **do not comply** with the full set of **ACID properties** that are common in **Relational Database Management Systems (RDBMS)**. Here's why:
+
+1. **Atomicity**: NoSQL databases often allow partial completion of transactions, which means they don't strictly adhere to all-or-nothing execution.
+2. **Consistency**: Unlike RDBMS, NoSQL databases may prioritize availability and partition tolerance over strict consistency.
+3. **Isolation**: NoSQL systems offer varying levels of isolation, but they don't guarantee the same level as RDBMS.
+4. **Durability**: Durability mechanisms differ; some NoSQL databases may delay writes for performance reasons.
+
+Exceptions exist—**graph databases**, for instance, comply with ACID properties. However, most NoSQL databases prioritize scalability, flexibility, and distributed architectures over strict ACID guarantees¹²³⁴. If you'd like more details or have other questions, feel free to ask! 😊
+
 ## `RANK()`, `ROW_NUMBER()`, and `DENSE_RANK()` functions in SQL.
 
 ### RANK()
